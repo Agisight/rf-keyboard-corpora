@@ -1,0 +1,12 @@
+{
+  "language": "Avar",
+  "language_code": "ava",
+  "script": "Cyrillic",
+  "title": "Avar Keyboard Frequency Corpus",
+  "description": "Letter frequency data and keyboard layout suggestions for the Avar language. Based on a corpus of 4.5 million words collected from open sources.",
+  "authors": ["Said Abdulaev", "Contributors from the Avar community"],
+  "date_created": "2025-07-24",
+  "version": "1.0",
+  "license": "MIT",
+  "source": "Collected from public Avar-language materials, including literature, news articles, and online content."
+}
