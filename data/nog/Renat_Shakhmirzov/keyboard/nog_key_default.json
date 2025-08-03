@@ -181,24 +181,6 @@
      }
   ],
   "long_press": [
-    {
-      "key": "Н",
-      "alternates": [
-        "Нъ"
-      ]
-    },
-    {
-      "key": "О",
-      "alternates": [
-        "Оь"
-      ]
-    },
-    {
-      "key": "У",
-      "alternates": [
-        "Уь"
-      ]
-    },
      {
       "key": "Б",
       "alternates": [
@@ -218,9 +200,9 @@
       ]
     },
     {
-      "key": "А",
+      "key": "Оь",
       "alternates": [
-        "Аь"
+        "!"
       ]
     },
     {
