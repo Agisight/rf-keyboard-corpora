@@ -1,34 +1,244 @@
 {
-  "version": "1.0",
-  "layout_name": "Vendor Default",
-  "vendor": "VendorCo",
-  "rows": 4,
-  "keys": [
-    {
-      "label": "Й",
-      "row": 1,
-      "column": 1
-    },
-    {
-      "label": "Ө",
-      "row": 2,
-      "column": 7
-    }
-  ],
-  "long_press": [
-    {
-      "key": "О",
-      "alternates": [
-        "Ӧ",
-        "Ө"
-      ]
-    },
-    {
-      "key": "У",
-      "alternates": [
-        "Ӱ",
-        "Ü"
-      ]
-    }
-  ]
-}
+    "version": "1.0",
+    "layout_name": "Abkhaz (customized)",
+    "vendor": "Tamaz Kharchlaa",
+    "rows": 4,
+    "keys": [
+      {
+        "label": "Ҵ",
+        "row": 1,
+        "column": 0
+      },
+      {
+        "label": "Ц",
+        "row": 1,
+        "column": 1
+      },
+      {
+        "label": "У",
+        "row": 1,
+        "column": 2
+      },
+      {
+        "label": "К",
+        "row": 1,
+        "column": 3
+      },
+      {
+        "label": "Е",
+        "row": 1,
+        "column": 4
+      },
+      {
+        "label": "Н",
+        "row": 1,
+        "column": 5
+      },
+      {
+        "label": "Г",
+        "row": 1,
+        "column": 6
+      },
+      {
+        "label": "Ш",
+        "row": 1,
+        "column": 7
+      },
+      {
+        "label": "Ӡ",
+        "row": 1,
+        "column": 8
+      },
+      {
+        "label": "З",
+        "row": 1,
+        "column": 9
+      },
+      {
+        "label": "Х",
+        "row": 1,
+        "column": 10
+      },
+      {
+        "label": "Ф",
+        "row": 1,
+        "column": 11
+      },      
+      {
+        "label": "Џ",
+        "row": 2,
+        "column": 0
+      },
+      {
+        "label": "Ы",
+        "row": 2,
+        "column": 1
+      },
+      {
+        "label": "В",
+        "row": 2,
+        "column": 2
+      },
+      {
+        "label": "А",
+        "row": 2,
+        "column": 3
+      },
+      {
+        "label": "П",
+        "row": 2,
+        "column": 4
+      },
+      {
+        "label": "Р",
+        "row": 2,
+        "column": 5
+      },
+      {
+        "label": "О",
+        "row": 2,
+        "column": 6
+      },
+      {
+        "label": "Л",
+        "row": 2,
+        "column": 7
+      },
+      {
+        "label": "Д",
+        "row": 2,
+        "column": 8
+      },
+      {
+        "label": "Ж",
+        "row": 2,
+        "column": 9
+      },
+      {
+        "label": "Ҽ",
+        "row": 2,
+        "column": 10
+      },
+      {
+        "label": "Ә",
+        "row": 2,
+        "column": 11
+      },
+      {
+        "label": "Ч",
+        "row": 3,
+        "column": 0
+      },
+      {
+        "label": "С",
+        "row": 3,
+        "column": 1
+      },
+      {
+        "label": "М",
+        "row": 3,
+        "column": 2
+      },
+      {
+        "label": "И",
+        "row": 3,
+        "column": 3
+      },
+      {
+        "label": "Т",
+        "row": 3,
+        "column": 4
+      },
+      {
+        "label": "Ь",
+        "row": 3,
+        "column": 5
+      },
+      {
+        "label": "Б",
+        "row": 3,
+        "column": 6
+      },
+      {
+        "label": "Ҩ",
+        "row": 3,
+        "column": 7
+      }
+    ],
+    "long_press": [
+      {
+        "key": "Т",
+        "alternates": [
+          "Ҭ"
+        ]
+      },
+      {
+        "key": "Ҵ",
+        "alternates": [        
+          "!"
+        ]
+      },
+      {
+        "key": "К",
+        "alternates": [
+          "Қ",
+          "Ҟ"
+        ]
+      },
+      {
+        "key": "Г",
+        "alternates": [
+          "Ӷ"
+        ]
+      },
+      {
+        "key": "Ӡ",
+        "alternates": [
+          "Ӡә"
+        ]
+      },
+      {
+        "key": "Х",
+        "alternates": [
+          "Ҳ"
+        ]
+      },
+      {
+        "key": "П",
+        "alternates": [
+          "Ԥ"
+        ]
+      },
+      {
+        "key": "Д",
+        "alternates": [
+          "Дә"
+        ]
+      },
+      {
+        "key": "Ж",
+        "alternates": [
+          "Жь",
+          "Жә"
+        ]
+      },
+      {
+        "key": "Ҽ",
+        "alternates": [
+          "Ҿ"
+        ]
+      },
+      {
+        "key": "Џ",
+        "alternates": [
+          "Џь"
+        ]
+      },
+      {
+        "key": "Ч",
+        "alternates": [
+          "Ҷ"
+        ]
+      }    
+    ]
+  }
