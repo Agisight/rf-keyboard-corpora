@@ -1,13 +1,13 @@
-# Данные для языка `kom` от вендора `FU-Lab`
+# Данные для языка `kpv` от вендора `FU-Lab`
 
 ## raw/
 Содержит монокорпуса различных размеров (можно добавить любого размера, но описать количество в названии файла):
-- kom_mono_17264794.txt (Данные пока не раскрыты, но любезно дали доступ для расчета частот)
+- kpv_mono_17M.txt (Данные пока не раскрыты, но любезно дали доступ для расчета частот)
 
 Если у вас есть монокорпус в другом месте, то прямо внутри файла единственной строкой добавьте прямую ссылку. Лучше всего хранить открытый датасет в Huggingface.co, потому что там легко анализируется частоты букв)
 
 ## stats/
-Один файл kom_population.csv со столбцами (Не готов):
+Один файл kpv_population.csv со столбцами (Не готов):
 - year
 - total_speakers_global
 - total_speakers_rf
@@ -16,16 +16,16 @@
 
 ## keyboard/
 JSON‑файлы с вариантами раскладок (Не готов):
-- kom_key_default.json (обязательно)
-- kom_key_4rows.json
-- kom_key_complex.json
+- kpv_key_default.json (обязательно)
+- kpv_key_4rows.json
+- kpv_key_complex.json
 
 ## frequencies/
-- kom_monocorpus_freq.csv — частотности символов.
+- kpv_monocorpus_freq.csv — частотности символов.
 
 ## mapping/
-- kom_key_mapping.json (Не готов) — маппинг расширенных букв на русские клавиши.
-- kom_key_mapping_extension.json – маппинг расширенных букв и **символов** на русские клавиши, **не обязательно**.
+- kpv_key_mapping.json (Не готов) — маппинг расширенных букв на русские клавиши.
+- kpv_key_mapping_extension.json – маппинг расширенных букв и **символов** на русские клавиши, **не обязательно**.
 
 ## metadata.json
 Обязательные поля: version, vendor, source, date_collected, contact, description.
