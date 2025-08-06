@@ -31,7 +31,8 @@ che_key_mapping.json — маппинг расширенных букв на р�
 
 ## Код для подсчета частот букв: 
 
-```sqlWITH raw_text AS (
+```sql
+WITH raw_text AS (
   SELECT UPPER(text) AS text
   FROM che_cyrl_train
 ),
