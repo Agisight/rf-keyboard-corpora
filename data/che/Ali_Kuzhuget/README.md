@@ -31,15 +31,19 @@ che_key_mapping.json — маппинг расширенных букв на р�
 
 ## Код для подсчета частот букв: 
 
-```sql
-WITH raw_text AS (
-  SELECT UPPER(example) AS text
-  FROM train
+```sqlWITH raw_text AS (
+  SELECT UPPER(text) AS text
+  FROM che_cyrl_train
+),
+pre_norm_text AS (
+  SELECT
+    regexp_replace(text, '^(\d+)((?=[А-Я]))', '\1 \2', 'g') AS text
+  FROM raw_text
 ),
 normalized_text AS (
   SELECT
-    regexp_replace(text, '[I1l|]', 'Ӏ', 'g') AS norm_text
-  FROM raw_text
+    regexp_replace(text, '[ⅠＩǀ│┃∣❘I1l|І](?=[а-яА-ЯӀ])|(?<=[а-яА-ЯӀ])[ⅠＩǀ│┃∣❘I1l|І]', 'Ӏ', 'g') AS norm_text
+  FROM pre_norm_text
 ),
 extracted_letters AS (
   SELECT
