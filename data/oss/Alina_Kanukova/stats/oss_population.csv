@@ -1,3 +1,3 @@
-year;total_speakers_global;total_speakers_rf;source_name;source_url
-2020;;456564;Federal State Statistics Service RF;https://rosstat.gov.ru/storage/mediabank/Tom5_tab1_VPN-2020.xlsx
-2020;490000;;Ethnologue.com;https://www.ethnologue.com/language/oss/
+year,total_speakers_global,total_speakers_rf,source_name,source_url
+2020,,456564,Federal State Statistics Service RF,https://rosstat.gov.ru/storage/mediabank/Tom5_tab1_VPN-2020.xlsx
+2020,490000,,Ethnologue.com,https://www.ethnologue.com/language/oss/
