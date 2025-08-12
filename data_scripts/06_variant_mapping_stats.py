@@ -8,19 +8,13 @@
 #
 # Выход:
 #   1) summaries/variant_mapping_stats.csv
-#        base_letter, variant, source_languages, total_speakers, relative_freq_in_group
-#      Формат доли: 2 знака (например, "12.23%"); всё <1% → "<1%";
-#      если в группе >1 варианта и топ ≈100% (>=99.5%) → ">99%".
-#
 #   2) summaries/variant_mapping_priorities_apple.csv
-#        base_letter, priorities
-#      base_letter содержит долю носителей этой маппинг-буквы в скобках:
-#        "А (12.5%)", при <1% → "А (<1%)"
-#      priorities: "ВАР1 (55.0%); ВАР2 (30.0%); ВАР3 (<1%)"
-#      Для долей вариантов: <1% → "<1%"; топ в группе >1 и ≥99.5% → ">99%".
+#   3) summaries/variant_mapping_priorities_unicode.csv
 #
-# Все буквы приводятся к NFC+UPPERCASE. Сортировка в детальной таблице:
-#   по base_letter, затем внутри по убыванию доли (стабильно через скрытый ранг).
+# Правила отображения долей:
+#   - в stats: 2 знака; <1% → "<1%"; если в группе >1 и топ ≥99.5% → ">99%"
+#   - в apple: 1 знак; <1% → "<1%"; если в группе >1 и топ ≥99.5% → ">99%"
+#   - в unicode-выводе только коды в скобках.
 
 import csv
 import os
@@ -36,13 +30,12 @@ MAP_ATOMIC = Path("summaries/variant_mapping_atomic.csv")
 SPEAKERS   = Path("summaries/speakers_global.csv")
 SYMBOL_POP = Path("summaries/global_symbol_popularity_weighted.csv")
 
-OUT_STATS  = Path("summaries/variant_mapping_stats.csv")
-OUT_APPLE  = Path("summaries/variant_mapping_priorities_apple.csv")
+OUT_STATS   = Path("summaries/variant_mapping_stats.csv")
+OUT_APPLE   = Path("summaries/variant_mapping_priorities_apple.csv")
+OUT_UNICODE = Path("summaries/variant_mapping_priorities_unicode.csv")  # ← новое
 
-# Порог «≈100%»: если доля ≥ 99.5% и в группе >1 варианта, показываем как ">99%"
-ALMOST_ONE = Decimal("0.995")
-# Всё, что <1% показываем как "<1%"
-LT_ONE     = Decimal("0.01")
+ALMOST_ONE = Decimal("0.995")  # ≥99.5% считаем почти 100% (для правила >99%)
+LT_ONE     = Decimal("0.01")   # всё <1% отображаем как "<1%"
 
 def nfc_upper(s: str) -> str:
     return unicodedata.normalize("NFC", (s or "").strip()).upper()
@@ -52,57 +45,43 @@ def _sniff_delimiter(sample: str) -> str:
 
 def _read_csv_flex(path: Path) -> List[dict]:
     with path.open("r", encoding="utf-8") as f:
-        head = f.read(4096)
-        delim = _sniff_delimiter(head)
-        f.seek(0)
+        head = f.read(4096); delim = _sniff_delimiter(head); f.seek(0)
         return list(csv.DictReader(f, delimiter=delim))
 
 def _to_dec(x) -> Decimal:
-    if x is None:
-        return Decimal("0")
+    if x is None: return Decimal("0")
     s = str(x).strip().replace(" ", "")
-    if s == "":
-        return Decimal("0")
-    try:
-        return Decimal(s)
+    if s == "": return Decimal("0")
+    try: return Decimal(s)
     except Exception:
-        try:
-            return Decimal(s.replace(",", ""))
-        except Exception:
-            return Decimal("0")
+        try: return Decimal(s.replace(",", ""))
+        except Exception: return Decimal("0")
 
 def _fmt_stats_percent(share: Decimal, multi: bool, is_top: bool) -> str:
-    """Детальная таблица: 2 знака, всё <1% → '<1%', топ ≈100% в многогруппе → '>99%'."""
-    if share < LT_ONE:
-        return "<1%"
-    if multi and is_top and share >= ALMOST_ONE:
-        return ">99%"
+    if share < LT_ONE: return "<1%"
+    if multi and is_top and share >= ALMOST_ONE: return ">99%"
     val = (share * Decimal("100")).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
     return f"{val}%"
 
 def _fmt_apple_percent(share: Decimal, multi: bool, is_top: bool) -> str:
-    """Apple-вывод: 1 знак, всё <1% → '<1%', топ ≈100% в многогруппе → '>99%'."""
-    if share < LT_ONE:
-        return "<1%"
-    if multi and is_top and share >= ALMOST_ONE:
-        return ">99%"
+    if share < LT_ONE: return "<1%"
+    if multi and is_top and share >= ALMOST_ONE: return ">99%"
     val = (share * Decimal("100")).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
     return f"{val}%"
 
 def _fmt_base_speakers_percent(pct: Decimal) -> str:
-    """Процент носителей для маппинг-буквы в Apple-выводе (в скобках)."""
-    if pct < LT_ONE:
-        return "<1%"
+    if pct < LT_ONE: return "<1%"
     return f"{(pct * Decimal('100')).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP)}%"
 
+def _codes(s: str) -> str:
+    """Вернуть строку вида 'U+0410 U+0304' для переданной строки."""
+    return " ".join(f"U+{ord(ch):04X}" for ch in s)
+
 def main():
-    # Проверка входов
-    if not MAP_ATOMIC.exists():
-        print(f"ERR: not found {MAP_ATOMIC}"); return
-    if not SPEAKERS.exists():
-        print(f"ERR: not found {SPEAKERS}"); return
-    if not SYMBOL_POP.exists():
-        print(f"ERR: not found {SYMBOL_POP}"); return
+    # входы
+    if not MAP_ATOMIC.exists(): print(f"ERR: not found {MAP_ATOMIC}"); return
+    if not SPEAKERS.exists():   print(f"ERR: not found {SPEAKERS}"); return
+    if not SYMBOL_POP.exists(): print(f"ERR: not found {SYMBOL_POP}"); return
 
     map_rows   = _read_csv_flex(MAP_ATOMIC)
     speak_rows = _read_csv_flex(SPEAKERS)
@@ -119,15 +98,13 @@ def main():
     weight_by_symbol: Dict[str, Decimal] = {}
     for r in sym_rows:
         sym = nfc_upper((r.get("symbol") or r.get("variant") or ""))
-        if not sym:
-            continue
+        if not sym: continue
         w = _to_dec(r.get("weighted_population"))
-        if w == 0:
-            w = _to_dec(r.get("share"))
+        if w == 0: w = _to_dec(r.get("share"))
         weight_by_symbol[sym] = w
 
-    # Сбор строк из маппинга
-    rows: List[dict] = []
+    # собрать строки
+    rows = []
     for r in map_rows:
         base = nfc_upper(r.get("base_letter", ""))
         var  = nfc_upper(r.get("variant", ""))
@@ -138,36 +115,35 @@ def main():
             "base_letter": base,
             "variant": var,
             "source_languages": ",".join(langs),
-            "langs_set": set(langs),  # для подсчёта процента носителей у маппинг-буквы
+            "langs_set": set(langs),
             "total_speakers": total_speakers,
             "_w": var_weight,
         })
 
-    # Группировка по base_letter
+    # группировка по base_letter
     groups: Dict[str, List[dict]] = {}
     for row in rows:
         groups.setdefault(row["base_letter"], []).append(row)
 
     out_rows: List[dict] = []
     apple_rows: List[dict] = []
+    unicode_rows: List[dict] = []  # ← новое
 
     for base in sorted(groups.keys()):
         items = groups[base]
-        # сортировка по убыванию веса варианта
-        items.sort(key=lambda r: (-r["_w"], r["variant"]))
+        items.sort(key=lambda r: (-r["_w"], r["variant"]))      # порядок по убыванию веса
         group_sum = sum(r["_w"] for r in items)
         multi = len(items) > 1
-        shares: List[Decimal] = [Decimal("0")] * len(items) if group_sum == 0 else [(it["_w"] / group_sum) for it in items]
+        shares = [Decimal("0")] * len(items) if group_sum == 0 else [(it["_w"] / group_sum) for it in items]
 
-        # уникальные языки под этой маппинг-буквой → её доля носителей
+        # процент носителей для этой маппинг-буквы (для Apple-вывода)
         langs_union: Set[str] = set()
         for it in items:
             langs_union |= set(it["langs_set"])
         base_pop = sum(pop_by_lang.get(lg, Decimal("0")) for lg in langs_union)
         base_pct = (base_pop / grand_total_pop) if grand_total_pop > 0 else Decimal("0")
-        base_with_share = f"{base} ({_fmt_base_speakers_percent(base_pct)})"
 
-        # Детальная таблица (сохраняем порядок через скрытый ранг)
+        # 1) детальная таблица
         for idx, (it, sh) in enumerate(zip(items, shares), start=1):
             pct_str = _fmt_stats_percent(sh, multi, idx == 1)
             ts = it["total_speakers"]
@@ -180,14 +156,23 @@ def main():
                 "_rank": idx,
             })
 
-        # Apple-вывод
-        priorities = "; ".join(
+        # 2) файл для Apple (с процентом носителей в первом столбце)
+        base_with_pct = f"{base} ({_fmt_base_speakers_percent(base_pct)})"
+        priorities_pct = "; ".join(
             f"{it['variant']} ({_fmt_apple_percent(sh, multi, i==0)})"
             for i, (it, sh) in enumerate(zip(items, shares))
         )
-        apple_rows.append({"base_letter": base_with_share, "priorities": priorities})
+        apple_rows.append({"base_letter": base_with_pct, "priorities": priorities_pct})
 
-    # Запись файлов
+        # 3) файл с Unicode-кодами вместо процентов
+        base_with_codes = f"{base} ({_codes(base)})"
+        priorities_codes = "; ".join(
+            f"{it['variant']} ({_codes(it['variant'])})"
+            for it in items
+        )
+        unicode_rows.append({"base_letter": base_with_codes, "priorities": priorities_codes})
+
+    # запись
     out_rows.sort(key=lambda r: (r["base_letter"], r["_rank"]))
     OUT_STATS.parent.mkdir(parents=True, exist_ok=True)
 
@@ -206,8 +191,15 @@ def main():
         w.writeheader()
         w.writerows(apple_rows)
 
-    print(f"OK: wrote {OUT_STATS}  (rows={len(out_rows)})")
-    print(f"OK: wrote {OUT_APPLE} (rows={len(apple_rows)}; total_speakers={int(grand_total_pop)})")
+    unicode_rows.sort(key=lambda r: r["base_letter"])
+    with OUT_UNICODE.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["base_letter", "priorities"])
+        w.writeheader()
+        w.writerows(unicode_rows)
+
+    print(f"OK: wrote {OUT_STATS}")
+    print(f"OK: wrote {OUT_APPLE}")
+    print(f"OK: wrote {OUT_UNICODE}")
 
 if __name__ == "__main__":
     main()
