@@ -26,7 +26,7 @@
 | kir | Ali_Kuzhuget | 6 083 000 | 241M | Ө, Ү, Ң |
 | kjh | Ali_Kuzhuget | 63 000 | 2.4M | Ғ, І, Ң, Ӧ, Ӱ, Ӌ |
 | koi | FU-Lab | 59 000 | 11985083 | Ӧ, І |
-| kpt | Timbo_Karatinets | 1 265 000 | 100K | Ӧ, Ө, Ӱ, Ü, Ң, Җ |
+| kpt | Timbo_Karatinets | 1 265 000 | 100K | Ӏ |
 | kpv | FU-Lab | 154 000 | 17M | Ӧ, І |
 | krc | Ali_Berberov | 274 038 | 100K | Ғ, Җ, Ң, Қ |
 | kum | Ali_Kuzhuget | 569 000 | 16M | — |
