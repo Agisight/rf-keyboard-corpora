@@ -46,7 +46,7 @@
 | tab | Ali_Kuzhuget | 153 000 | 3M | Ӏ |
 | tat | inov8 | 5 844 000 | 707M | Ө, Ү, Ң, Ә, Җ, Һ |
 | tgk | maxmerben | 216 450 | 21M | Ғ, Ё, Ӣ, Қ, Ӯ, Ҳ, Ҷ |
-| tin | Ali_Kuzhuget | 20 000 | 12K | А̄, Аᵸ, А̄ᵸ, Ӏ, Еᵸ, Е̄, Ӣ, Иᵸ, Ӣᵸ, О̄, Оᵸ, C̄, Ӯ, Уᵸ, Ӯᵸ |
+| tin | Ali_Kuzhuget | 20 000 | 12K | А̄, Аᵸ, А̄ᵸ, Ӏ, Еᵸ, Е̄, Ӣ, Иᵸ, Ӣᵸ, О̄, Оᵸ, С̄, Ӯ, Уᵸ, Ӯᵸ |
 | tsudaqar | Ali_Kuzhuget | 20 000 | 18M | Ӏ, Ӱ |
 | tyv | Ali_Kuzhuget | 312 194 | 100M | Ө, Ү, Ң |
 | udm | vorgoron | 396 000 | 90M | Ӧ, Ӟ, Ӝ, Ӥ, Ӵ |
