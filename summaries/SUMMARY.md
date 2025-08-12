@@ -37,7 +37,7 @@
 | mrj | FU-lab | 135 000 | 5.7M | Ӧ, Ӱ, Ӓ, Ӹ |
 | myv | Ali_Kuzhuget | 108 000 | 20M | — |
 | nog | Renat_Shakhmirzov | 111 000 | 3.7M | АЬ, НЪ, ОЬ, УЬ |
-| oss | Alina_Kanukova | 490 000 | 100K | Æ |
+| oss | Alina_Kanukova | 490 000 | 100K | Ӕ |
 | rom | Ali_Kuzhuget | 500 000 | 669K | Ґ |
 | ron | Ali_Kuzhuget | 46 500 | 8.5M | Ӂ |
 | rut | Ali_Kuzhuget | 55 000 | 36K | Ӏ |
