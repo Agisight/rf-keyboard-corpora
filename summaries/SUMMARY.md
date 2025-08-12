@@ -17,7 +17,7 @@
 | che | Ali_Kuzhuget | 2 126 000 | 52.5M | Ӏ |
 | chu | Ali_Kuzhuget | 41 666 | 1.2M | Ѣ, І, Ѳ, Ѵ, Ѡ, Ѭ, Ѱ, Ѯ, Ѫ, Ѧ, Ѥ |
 | chv | chuvash.org | 700 222 | 100M | Ӑ, Ӗ, Ё, Ҫ, Ӳ |
-| crh | Ali_Kuzhuget | 149 827 | 3M | ГЪ, КЪ, НЪ, ДЖ |
+| crh | Ali_Kuzhuget | 541 000 | 3M | ГЪ, КЪ, НЪ, ДЖ |
 | dar | Murtazali_Rabadangadzhiev | 362 156 | 18M | ГӀ, ГЬ, ГЪ, КӀ, КЬ, КЪ, ПӀ, ТӀ, ХӀ, ХЪ, ХЬ, ЦӀ, ЧӀ |
 | dlg | Ali_Kuzhuget | 8 100 | 42K | Ө, Ӈ, Ү, Һ |
 | inh | Ali_Kuzhuget | 536 000 | 319K | АЬ, ГӀ, Ӏ, КЪ, КӀ, КХ, ПӀ, ТӀ, ХЬ, ХӀ, ЦӀ, ЧӀ, ЯЬ |
@@ -33,11 +33,11 @@
 | lbe | Ali_Kuzhuget | 189 000 | 11.8M | Ӏ |
 | lez | Artur_Magomedov | 630 000 | 4M | ЦӀ, УЬ, КЬ, КЪ, КӀ, Ё, ГЪ, ГЬ, ХЪ, ХЬ, ПӀ, ЧӀ, ТӀ |
 | mdf | Ali_Kuzhuget | 483 000 | 6.4M | — |
-| mhr | FU-lab | 258 722 | 1M | Ҥ, Ӧ, Ӱ, Ӓ, Ӹ |
-| mrj | FU-lab | 15 352 | 5.7M | Ӧ, Ӱ, Ӓ, Ӹ |
+| mhr | FU-lab | 423 803 | 1M | Ҥ, Ӧ, Ӱ, Ӓ, Ӹ |
+| mrj | FU-lab | 135 000 | 5.7M | Ӧ, Ӱ, Ӓ, Ӹ |
 | myv | Ali_Kuzhuget | 108 000 | 20M | — |
 | nog | Renat_Shakhmirzov | 111 000 | 3.7M | АЬ, НЪ, ОЬ, УЬ |
-| oss | Alina_Kanukova | 456 564 | 100K | Æ |
+| oss | Alina_Kanukova | 490 000 | 100K | Æ |
 | rom | Ali_Kuzhuget | 500 000 | 669K | Ґ |
 | ron | Ali_Kuzhuget | 46 500 | 8.5M | Ӂ |
 | rut | Ali_Kuzhuget | 55 000 | 36K | Ӏ |
@@ -58,5 +58,5 @@
 
 **Totals**
 - Languages: 53
-- With speakers data: 53 · Sum world speakers: 138 166 549
+- With speakers data: 53 · Sum world speakers: 138 875 887
 - With corpus data: 53 · Total corpus size (max per language): 6.1B
