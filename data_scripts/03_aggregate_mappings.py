@@ -35,6 +35,9 @@ OUT_CSV_ATOMIC = "summaries/variant_mapping_atomic.csv"
 GLOB_PAT = "data/**/mapping/*_key_mapping.json"
 VERBOSE  = True
 
+# Исключаем шаблонный язык
+EXCLUDED_LANGS = {"lang"}
+
 PREFERRED_VENDOR: Dict[str, str] = {
     "abk": "Tamaz_Kharchlaa",
 }
@@ -95,13 +98,17 @@ def collect_rows() -> List[Dict]:
         vprint("[JSON *_key_mapping] файлов не найдено")
         return rows
 
+    # сгруппируем пути по языку
     per_lang: Dict[str, List[Tuple[str, str]]] = {}
     for p in all_paths:
         lang, vendor = split_lang_vendor(p)
         if not lang or not vendor:
             continue
+        if lang in EXCLUDED_LANGS:
+            continue
         per_lang.setdefault(lang, []).append((vendor, p))
 
+    # финальный список путей с учётом предпочтений
     paths: List[str] = []
     for lang, lst in sorted(per_lang.items()):
         pref = PREFERRED_VENDOR.get(lang)
@@ -119,8 +126,8 @@ def collect_rows() -> List[Dict]:
 
     for p in paths:
         lang = lang_from_filename(p)
-        if not lang:
-            vprint("  пропуск (язык не извлечён):", p)
+        if not lang or lang in EXCLUDED_LANGS:
+            vprint("  пропуск (язык исключён или не извлечён):", p)
             continue
 
         try:
