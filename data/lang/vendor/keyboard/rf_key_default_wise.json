@@ -1,0 +1,378 @@
+{
+  "version": "1.1",
+  "layout_name": "Russian Federation",
+  "vendor": "Ali Kuzhuget",
+  "rows": 4,
+  "keys": [
+    {
+      "label": "Й",
+      "row": 1,
+      "column": 0
+    },
+    {
+      "label": "Ц",
+      "row": 1,
+      "column": 1
+    },
+    {
+      "label": "У",
+      "row": 1,
+      "column": 2
+    },
+    {
+      "label": "К",
+      "row": 1,
+      "column": 3
+    },
+    {
+      "label": "Е",
+      "row": 1,
+      "column": 4
+    },
+    {
+      "label": "Н",
+      "row": 1,
+      "column": 5
+    },
+    {
+      "label": "Г",
+      "row": 1,
+      "column": 7
+    },
+    {
+      "label": "Ш",
+      "row": 1,
+      "column": 8
+    },
+    {
+      "label": "Щ",
+      "row": 1,
+      "column": 9
+    },
+    {
+      "label": "З",
+      "row": 1,
+      "column": 10
+    },
+    {
+      "label": "Х",
+      "row": 1,
+      "column": 11
+    },
+    {
+      "label": "Ф",
+      "row": 2,
+      "column": 0
+    },
+    {
+      "label": "Ы",
+      "row": 2,
+      "column": 1
+    },
+    {
+      "label": "В",
+      "row": 2,
+      "column": 2
+    },
+    {
+      "label": "А",
+      "row": 2,
+      "column": 3
+    },
+    {
+      "label": "П",
+      "row": 2,
+      "column": 4
+    },
+    {
+      "label": "Р",
+      "row": 2,
+      "column": 5
+    },
+    {
+      "label": "О",
+      "row": 2,
+      "column": 6
+    },
+    {
+      "label": "Л",
+      "row": 2,
+      "column": 7
+    },
+    {
+      "label": "Д",
+      "row": 2,
+      "column": 8
+    },
+    {
+      "label": "Ж",
+      "row": 2,
+      "column": 9
+    },
+    {
+      "label": "Э",
+      "row": 2,
+      "column": 10
+    },
+    {
+      "label": "Я",
+      "row": 3,
+      "column": 0
+    },
+    {
+      "label": "Ч",
+      "row": 3,
+      "column": 1
+    },
+    {
+      "label": "С",
+      "row": 3,
+      "column": 2
+    },
+    {
+      "label": "М",
+      "row": 3,
+      "column": 3
+    },
+    {
+      "label": "И",
+      "row": 3,
+      "column": 4
+    },
+    {
+      "label": "Т",
+      "row": 3,
+      "column": 5
+    },
+    {
+      "label": "Ь",
+      "row": 3,
+      "column": 6
+    },
+    {
+      "label": "Б",
+      "row": 3,
+      "column": 7
+    },
+    {
+      "label": "Ю",
+      "row": 3,
+      "column": 8
+    }
+  ],
+  "long_press": [
+    {
+      "key": "Й",
+      "alternates": [
+        "Ї",
+        "Ј",
+        "Ѵ"
+      ]
+    },
+    {
+      "key": "Ц",
+      "alternates": [
+        "Ҵ"
+      ]
+    },
+    {
+      "key": "У",
+      "alternates": [
+        "Ў",
+        "Ү",
+        "Ұ",
+        "Ӱ",
+        "Ӳ",
+        "Ӯ"
+      ]
+    },
+    {
+      "key": "К",
+      "alternates": [
+        "Қ",
+        "Ҡ",
+        "Ҟ",
+        "Ѯ"
+      ]
+    },
+    {
+      "key": "Е",
+      "alternates": [
+        "Ё",
+        "Є",
+        "Ӗ",
+        "Ѣ",
+        "Е̄"
+      ]
+    },
+    {
+      "key": "Н",
+      "alternates": [
+        "Ң",
+        "Ҥ",
+        "Ӈ",
+        "ᵸ"
+      ]
+    },
+    {
+      "key": "Г",
+      "alternates": [
+        "Ғ",
+        "Ґ",
+        "Ҕ",
+        "Ӷ"
+      ]
+    },
+    {
+      "key": "Ш",
+      "alternates": [
+        "Ҽ"
+      ]
+    },
+    {
+      "key": "Щ",
+      "alternates": [
+        "Ҿ"
+      ]
+    },
+    {
+      "key": "З",
+      "alternates": [
+        "Ҙ",
+        "Ӡ",
+        "Ӟ"
+      ]
+    },
+    {
+      "key": "Х",
+      "alternates": [
+        "Ҳ",
+        "Һ"
+      ]
+    },
+    {
+      "key": "Ф",
+      "alternates": [
+        "Ѳ"
+      ]
+    },
+    {
+      "key": "Р",
+      "alternates": [
+        "◌́",
+        "◌̈",
+        "◌̄",
+        "◌̋"
+      ]
+    },
+    {
+      "key": "Ы",
+      "alternates": [
+        "Ӹ"
+      ]
+    },
+    {
+      "key": "А",
+      "alternates": [
+        "Ӕ",
+        "Ӑ",
+        "Ӓ",
+        "А̄"
+      ]
+    },
+    {
+      "key": "П",
+      "alternates": [
+        "Ԥ",
+        "Ѱ"
+      ]
+    },
+    {
+      "key": "О",
+      "alternates": [
+        "Ө",
+        "Ӧ",
+        "О̄",
+        "Ѡ"
+      ]
+    },
+    {
+      "key": "Л",
+      "alternates": [
+        "Ӆ"
+      ]
+    },
+    {
+      "key": "Ж",
+      "alternates": [
+        "Җ",
+        "Ӝ",
+        "Ӂ",
+        "Ѥ"
+      ]
+    },
+    {
+      "key": "Э",
+      "alternates": [
+        "Ә",
+        "Ӭ"
+      ]
+    },
+    {
+      "key": "Я",
+      "alternates": [
+        "Џ",
+        "Ѧ"
+      ]
+    },
+    {
+      "key": "Ч",
+      "alternates": [
+        "Ҷ",
+        "Ӵ",
+        "Ӌ"
+      ]
+    },
+    {
+      "key": "С",
+      "alternates": [
+        "Ҫ",
+        "С̄"
+      ]
+    },
+    {
+      "key": "И",
+      "alternates": [
+        "І",
+        "Ӥ",
+        "Ӣ"
+      ]
+    },
+    {
+      "key": "Т",
+      "alternates": [
+        "Ҭ"
+      ]
+    },
+    {
+      "key": "Ь",
+      "alternates": [
+        "Ъ",
+        "Ѫ"
+      ]
+    },
+    {
+      "key": "Б",
+      "alternates": [
+        "Ӏ"
+      ]
+    },
+    {
+      "key": "Ю",
+      "alternates": [
+        "Ҩ",
+        "Ѭ"
+      ]
+    }
+  ]
+}

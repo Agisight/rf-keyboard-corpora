@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Тувинская клавиатура (iOS-стиль)</title>
+  <title>Клавиатура РФ (iOS-стиль). V1.1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -14,7 +14,7 @@
       align-items: center;
       justify-content: flex-end;
       height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Roboto";
     }
     .input-area {
       width: 90%;
@@ -28,6 +28,7 @@
       border: none;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       resize: none;
+      font-family: "Roboto";
     }
     .keyboard {
       background: #ebebf0;
@@ -62,6 +63,9 @@
       position: absolute;
       margin: 0.2em;
       color: #888;
+      font-family: "Roboto";
+      line-height: 1.2;
+      display: inline-block; width: 1em; text-align: center;
     }
     .key:active {
       background: #dedede;
@@ -71,6 +75,7 @@
       top: -60px;
       left: 50%;
       transform: translateX(-50%);
+      font-family: "Roboto";
       display: flex;
       background: white;
       border-radius: 6px;
@@ -88,9 +93,22 @@
       background: #eee;
       border-radius: 4px;
     }
+    .key * { pointer-events: none; }
   </style>
 </head>
 <body>
+  <h2 style="
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Roboto';
+    font-weight: 500;
+  ">
+    Клавиатура РФ
+  </h2>
+
   <div class="input-area">
     <textarea id="output" rows="3" placeholder="Введите текст..."></textarea>
   </div>
@@ -187,7 +205,7 @@
               };
 
               const upListener = () => {
-                output.value += chars[selectedIndex];
+                appendCharSmart(chars[selectedIndex]);
                 popup.remove();
                 document.removeEventListener("mousemove", moveListener);
                 document.removeEventListener("mouseup", upListener);
@@ -202,10 +220,45 @@
         key.addEventListener("mouseup", (e) => {
           clearTimeout(holdTimer);
           if (!longPressed) {
-            output.value += e.target.textContent[0];
+            appendCharSmart(e.target.textContent[0]);
           }
         });
       });
+    }
+
+    // Готовим сегментер 1 раз
+    const seg = new Intl.Segmenter('ru', { granularity: 'grapheme' });
+    const stripDottedCircle = s => s.replace(/\u25CC/g, ''); // убираем ◌
+
+    function dropLastGrapheme(s) {
+      const it = seg.segment(s);
+      let startLast = 0;
+      for (const g of it) startLast = g.index;
+      return s.slice(0, startLast);
+    }
+    function lastGrapheme(s) {
+      const it = seg.segment(s);
+      let last = '';
+      for (const g of it) last = g.segment;
+      return last;
+    }
+
+    // 2) умная вставка
+    function appendCharSmart(raw) {
+      const ch = stripDottedCircle(raw);            // <<< ВАЖНО
+      const onlyCombining = /^[\p{Mn}]+$/u.test(ch);
+
+      // канонический порядок в буфере
+      output.value = output.value.normalize('NFC');
+
+      if (onlyCombining && output.value.length > 0) {
+        const base = lastGrapheme(output.value);
+        output.value = dropLastGrapheme(output.value) + base + ch;
+      } else {
+        output.value += ch;
+      }
+
+      output.value = output.value.normalize('NFC');
     }
   </script>
 </body>
