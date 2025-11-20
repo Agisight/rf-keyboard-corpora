@@ -10,7 +10,7 @@
 | alt | Ali_Kuzhuget | 89 000 | 13.5M | Ј, Ҥ, Ӧ, Ӱ |
 | ani | Ali_Kuzhuget | 30 000 | 125K | Ӏ |
 | atv | Ali_Kuzhuget | 5 700 | 13.5M | Ј, Ҥ, Ӧ, Ӱ |
-| ava | saidobavarskom | 650 104 | 100M | ГЪ, ГЬ, ГӀ, КЪ, КЬ, КӀ, ЛЪ, ЛӀ, ТӀ, ХЪ, ХЬ, ХӀ, ЦӀ, ЧӀ |
+| ava | saidobavarskom | 650 104 | 100M | ГЪ, ГЬ, ГӀ, КЪ, КЬ, КӀ, ЛЪ, ЛӀ, ТӀ, ХЪ, ХЬ, ХӀ, ЦӀ, ЧӀ, Ӏ |
 | bak | stdbug | 1 661 000 | 100M | Ө, Ү, Ң, Ҡ, Ғ, Ҫ, Ә, Ҙ, Һ, Ё |
 | bel | Ali_Kuzhuget | 8 554 000 | 1B | І, Ў |
 | bua | Sarana_Abidueva | 461 000 | 291K | Ө, Ү, Һ |
@@ -18,11 +18,11 @@
 | chu | Ali_Kuzhuget | 41 666 | 1.2M | Ѣ, І, Ѳ, Ѵ, Ѡ, Ѭ, Ѱ, Ѯ, Ѫ, Ѧ, Ѥ |
 | chv | chuvash.org | 700 222 | 100M | Ӑ, Ӗ, Ё, Ҫ, Ӳ |
 | crh | Ali_Kuzhuget | 541 000 | 3M | ГЪ, КЪ, НЪ, ДЖ |
-| dar | Murtazali_Rabadangadzhiev | 362 156 | 18M | ГӀ, ГЬ, ГЪ, КӀ, КЬ, КЪ, ПӀ, ТӀ, ХӀ, ХЪ, ХЬ, ЦӀ, ЧӀ |
+| dar | Murtazali_Rabadangadzhiev | 362 156 | 18M | ГӀ, ГЬ, ГЪ, КӀ, КЬ, КЪ, ПӀ, ТӀ, ХӀ, ХЪ, ХЬ, ЦӀ, ЧӀ, Ӏ |
 | dlg | Ali_Kuzhuget | 8 100 | 42K | Ө, Ӈ, Ү, Һ |
 | inh | Ali_Kuzhuget | 536 000 | 319K | АЬ, ГӀ, Ӏ, КЪ, КӀ, КХ, ПӀ, ТӀ, ХЬ, ХӀ, ЦӀ, ЧӀ, ЯЬ |
 | kaz | Ali_Kuzhuget | 17 956 000 | 1.8B | Ә, І, Ө, Ү, Ұ, Ғ, Қ, Ң, Һ |
-| kbd | adiga.ai | 1 000 000 | 10M | ГЪ, ЖЬ, КЪ, КӀ, ЛЪ, ЛӀ, ПӀ, ТӀ, ФӀ, ХЪ, ХЬ, ЦӀ, ЩӀ |
+| kbd | adiga.ai | 1 000 000 | 10M | ГЪ, ЖЬ, КЪ, КӀ, ЛЪ, ЛӀ, ПӀ, ТӀ, ФӀ, ХЪ, ХЬ, ЦӀ, ЩӀ, Ӏ |
 | kir | Ali_Kuzhuget | 6 083 000 | 241M | Ө, Ү, Ң |
 | kjh | Ali_Kuzhuget | 63 000 | 2.4M | Ғ, І, Ң, Ӧ, Ӱ, Ӌ |
 | koi | FU-Lab | 59 000 | 11985083 | Ӧ, І |
@@ -31,7 +31,7 @@
 | krc | Ali_Berberov | 274 038 | 100K | Ғ, Җ, Ң, Қ |
 | kum | Ali_Kuzhuget | 569 000 | 16M | — |
 | lbe | Ali_Kuzhuget | 189 000 | 11.8M | Ӏ |
-| lez | Artur_Magomedov | 630 000 | 4M | ЦӀ, УЬ, КЬ, КЪ, КӀ, Ё, ГЪ, ГЬ, ХЪ, ХЬ, ПӀ, ЧӀ, ТӀ |
+| lez | Artur_Magomedov | 630 000 | 4M | ЦӀ, УЬ, КЬ, КЪ, КӀ, Ё, ГЪ, ГЬ, ХЪ, ХЬ, ПӀ, ЧӀ, ТӀ, Ӏ |
 | mdf | Ali_Kuzhuget | 483 000 | 6.4M | — |
 | mhr | FU-lab | 423 803 | 1M | Ҥ, Ӧ, Ӱ, Ӓ, Ӹ |
 | mrj | FU-lab | 135 000 | 5.7M | Ӧ, Ӱ, Ӓ, Ӹ |
