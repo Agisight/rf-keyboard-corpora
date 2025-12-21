@@ -3,7 +3,7 @@
 # → summaries/speakers_global.csv (lang_code,population)
 # Проходим ТОЛЬКО по папкам языков: data/<lang>/
 # Для каждого языка берём первого по имени вендора: data/<lang>/<vendor>/stats/<lang>_population.csv
-# Поле приоритета: total_speakers_global, иначе total_speakers_rf. Если есть несколько лет — берём максимальный year.
+# Поле: ТОЛЬКО total_speakers_rf (БЕЗ fallback на global). Если есть несколько лет — берём максимальный year.
 
 import csv, glob, os, re, itertools
 from pathlib import Path
@@ -59,7 +59,7 @@ def _read_csv_flex(path: Path) -> List[dict]:
         return list(csv.DictReader(f, delimiter=delim))
 
 def _pick_population(rows: List[dict]) -> Optional[int]:
-    """Приоритет колонок: total_speakers_global → total_speakers_rf.
+    """Берём ТОЛЬКО total_speakers_rf (БЕЗ fallback на global).
     Если есть несколько лет — берём максимальный year.
     Если в одном и том же году несколько строк — берём максимум значения для этого года.
     """
@@ -70,23 +70,19 @@ def _pick_population(rows: List[dict]) -> Optional[int]:
     norm = [{(k or "").strip().lower(): v for k, v in r.items()} for r in rows]
 
     YEAR_KEYS = ["year"]
-    GLOBAL_KEYS = [
-        "total_speakers_global", "speakers_global", "global_speakers",
-        "total_speakers", "speakers_total", "population_global", "population"
-    ]
+    # ТОЛЬКО РФ данные
     RF_KEYS = [
         "total_speakers_rf", "speakers_rf", "rf_speakers",
         "speakers_in_rf", "population_rf", "population_in_rf"
     ]
 
     def candidate_value(r: dict) -> Optional[int]:
-        # НОВОЕ: Проверяем ТОЛЬКО RF_KEYS
+        # Только РФ данные (БЕЗ global)
         for rk in RF_KEYS:
             if rk in r and str(r[rk]).strip():
                 v = _num(r[rk])
                 if v is not None:
                     return v
-        # Удалена проверка на GLOBAL_KEYS
         return None
 
     # 1) собираем максимум по каждому году
@@ -108,8 +104,7 @@ def _pick_population(rows: List[dict]) -> Optional[int]:
         y_max = max(best_by_year.keys())
         return best_by_year[y_max]
 
-    # НОВОЕ: Если данные не были найдены через year,
-    # мы проверяем еще раз все строки на наличие RF-данных без привязки к году.
+    # 2) иначе — первая валидная (только RF)
     for r in norm:
         v = candidate_value(r)
         if v is not None:
@@ -118,7 +113,7 @@ def _pick_population(rows: List[dict]) -> Optional[int]:
     # НОВОЕ: Если не удалось найти валидное значение total_speakers_rf, выбрасываем ошибку
     raise ValueError("Required data for 'total_speakers_rf' not found or is invalid in the population data. Cannot continue.")
 
-    # Удалено: return None
+    return None
 
 def _first_vendor_population(lang: str) -> Optional[int]:
     """Находит первого по имени вендора, читает stats/<lang>_population.csv, возвращает population."""
@@ -170,7 +165,7 @@ def main():
     total_population = sum(r["population"] for r in rows_out)
 
     print(f"OK: wrote {OUT_CSV}  | found {len(rows_out)} of {len(langs)} languages")
-    print(f"SUM OF ALL SPEAKERS: {total_population:,}")
+    print(f"SUM OF RF SPEAKERS: {total_population:,}  [only total_speakers_rf, no global fallback]")
 
     if rows_out:
         print("HEAD (first 10 rows):")
@@ -178,7 +173,7 @@ def main():
             print(f"  {r['lang_code']},{r['population']}")
 
     if missing:
-        print("MISSING:", ", ".join(missing))
+        print("MISSING (no RF data):", ", ".join(missing))
 
 if __name__ == "__main__":
     main()

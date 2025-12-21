@@ -4,6 +4,9 @@ from __future__ import annotations
 import argparse, csv, json, re
 from pathlib import Path
 
+# ИСКЛЮЧАЕМ Ё и Ъ из анализа
+EXCLUDED_LETTERS = {"Ё", "Ъ"}
+
 # Поддерживаем:
 #   <lang>_mono_1.1M.txt
 #   <lang>_mono_707M.txt
@@ -114,6 +117,7 @@ def extract_special_letters_raw(mapping_path: Path) -> list[str]:
     Читаем mapping/<lang>_key_mapping.json и возвращаем ВСЕ значения «как есть»:
       - каждое значение приводим к UPPERCASE
       - не разбираем по символам, не фильтруем
+      - ИСКЛЮЧАЕМ Ё и Ъ
       - уникализируем, сохраняя порядок появления
     Пример формата:
       { "А": ["Ӕ", "Ӓ"], "С": ["Ҫ", "C’", "С̇"], ... }
@@ -133,6 +137,9 @@ def extract_special_letters_raw(mapping_path: Path) -> list[str]:
             if not isinstance(v, str):
                 continue
             up = v.upper()
+            # ИСКЛЮЧАЕМ Ё и Ъ
+            if up in EXCLUDED_LETTERS:
+                continue
             if up not in seen:
                 seen.add(up)
                 ordered.append(up)
@@ -200,11 +207,13 @@ def main():
     lines.append(f"- Languages: {len(rows)}")
     lines.append(f"- With speakers data: {total_speakers_count} · Sum world speakers: {human_int(total_speakers_sum)}")
     lines.append(f"- With corpus data: {total_corpus_count} · Total corpus size (max per language): {human_token_from_value(total_corpus_value_sum)}")
+    lines.append(f"\n_Note: Ё and Ъ excluded from analysis_")
 
     out_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"✓ Wrote {out_md.relative_to(root)} with {len(rows)} rows")
     print(f"   Sum speakers = {human_int(total_speakers_sum)} over {total_speakers_count} languages")
     print(f"   Sum corpus   = {human_token_from_value(total_corpus_value_sum)} over {total_corpus_count} languages")
+    print(f"   [Ё and Ъ excluded from Special letters]")
 
 if __name__ == "__main__":
     main()

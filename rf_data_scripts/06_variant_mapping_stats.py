@@ -151,7 +151,7 @@ def main():
                 "base_letter": it["base_letter"],
                 "variant": it["variant"],
                 "source_languages": it["source_languages"],
-                "total_speakers": str(int(ts)) if ts == ts.to_integral() else f"{ts}",
+                "rf_speakers": str(int(ts)) if ts == ts.to_integral() else f"{ts}",
                 "relative_freq_in_group": pct_str,
                 "_rank": idx,
             })
@@ -178,7 +178,7 @@ def main():
 
     with OUT_STATS.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=[
-            "base_letter","variant","source_languages","total_speakers","relative_freq_in_group"
+            "base_letter","variant","source_languages","rf_speakers","relative_freq_in_group"
         ])
         w.writeheader()
         for r in out_rows:

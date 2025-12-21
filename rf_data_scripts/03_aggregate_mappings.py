@@ -2,6 +2,8 @@
 """
 data_scripts/aggregate_mappings.py — сводим маппинги «как есть» + атомный свод с особым правилом для ᵸ
 
+ИСКЛЮЧАЕМ Ё и Ъ из анализа (фильтрация на входе)
+
 Ищем файлы:
   data/**/mapping/*_key_mapping.json
 
@@ -9,6 +11,7 @@ data_scripts/aggregate_mappings.py — сводим маппинги «как е
   • base_letter → UPPERCASE (NFC)  + спец‑правило: 'Ъ' → 'Ь'
   • variant     → UPPERCASE (NFC)
   • has_sequence = 1, если длина NFC(variant) > 1
+  • ИСКЛЮЧАЕМ Ё и Ъ
 
 Выход:
   1) summaries/variant_mapping.csv
@@ -37,6 +40,9 @@ VERBOSE  = True
 
 # Исключаем шаблонный язык
 EXCLUDED_LANGS = {"lang"}
+
+# ИСКЛЮЧАЕМ Ё и Ъ из анализа
+EXCLUDED_LETTERS = {"Ё", "Ъ"}
 
 PREFERRED_VENDOR: Dict[str, str] = {
     "abk": "Tamaz_Kharchlaa",
@@ -152,10 +158,19 @@ def collect_rows() -> List[Dict]:
             if not base_up:
                 continue
 
+            # ИСКЛЮЧАЕМ Ё и Ъ как base_letter
+            if base_up in EXCLUDED_LETTERS:
+                continue
+
             for var_raw in arr:
                 var_up = to_upper(var_raw)
                 if not var_up:
                     continue
+                
+                # ИСКЛЮЧАЕМ Ё и Ъ как variant
+                if var_up in EXCLUDED_LETTERS:
+                    continue
+
                 rows.append({
                     "language_code": lang,
                     "base_letter": base_up,
@@ -203,7 +218,7 @@ def aggregate_and_save() -> None:
         )
         w.writeheader()
         w.writerows(rows_out)
-    print(f"OK: wrote {OUT_CSV_FULL} (pairs={len(rows_out)})")
+    print(f"OK: wrote {OUT_CSV_FULL} (pairs={len(rows_out)}) [Ё and Ъ excluded]")
 
     # 2) Атомный файл + спец-правило для ᵸ
     #    - оставляем строки с 1 графемой
@@ -254,7 +269,7 @@ def aggregate_and_save() -> None:
         )
         w.writeheader()
         w.writerows(atomic_rows)
-    print(f"OK: wrote {OUT_CSV_ATOMIC} (pairs={len(atomic_rows)})")
+    print(f"OK: wrote {OUT_CSV_ATOMIC} (pairs={len(atomic_rows)}) [Ё and Ъ excluded]")
 
 if __name__ == "__main__":
     aggregate_and_save()

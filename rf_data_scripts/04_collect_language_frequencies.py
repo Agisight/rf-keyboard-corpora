@@ -3,7 +3,7 @@
 # Собирает частоты по ПЕРВОМУ (или заданному) вендору каждого языка и нормализует варианты:
 #  - всё в NFC+UPPERCASE,
 #  - любые строки, содержащие ᵸ / ᴴ / ʰ, сводит к единому варианту 'ᵸ'.
-
+# ИСКЛЮЧАЕМ Ё и Ъ из анализа (фильтрация на входе)
 import csv, glob, os, unicodedata
 from pathlib import Path
 from typing import Optional, Dict, List
@@ -13,11 +13,14 @@ ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
 DATA_DIR = Path("data")
-OUT_CSV  = "summaries/frequencies_by_language.csv"  # ← теперь в summaries/
+OUT_CSV  = "summaries/frequencies_by_language.csv"
 VERBOSE  = True
 
-# исключаем служебный шаблон и (по умолчанию) русский
-EXCLUDED_LANGS = {"lang", "ru", "rus"}  # убери "ru","rus" если нужно включить
+# исключаем служебный шаблон и русский
+EXCLUDED_LANGS = {"lang", "ru", "rus"}
+
+# ИСКЛЮЧАЕМ Ё и Ъ из анализа
+EXCLUDED_LETTERS = {"Ё", "Ъ"}
 
 # если для языка нужно жёстко выбрать вендора — укажи здесь
 PREFERRED_VENDOR: Dict[str, str] = {
@@ -148,6 +151,10 @@ def main():
                 continue
 
             variant = canonicalize_variant(variant_raw)
+            
+            # ИСКЛЮЧАЕМ Ё и Ъ
+            if variant in EXCLUDED_LETTERS:
+                continue
 
             try:
                 Ci = float(str(row[c_key]).strip())
@@ -192,7 +199,7 @@ def main():
         w.writeheader()
         w.writerows(rows_out)
 
-    print(f"OK: wrote {OUT_CSV} (rows={len(rows_out)})")
+    print(f"OK: wrote {OUT_CSV} (rows={len(rows_out)}) [Ё and Ъ excluded]")
 
 if __name__ == "__main__":
     main()
