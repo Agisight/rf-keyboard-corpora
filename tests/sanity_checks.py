@@ -13,7 +13,7 @@ import os
 from collections import defaultdict
 from decimal import Decimal
 
-SUMMARIES = "summaries"
+SUMMARIES = "rf_summaries"
 
 
 # ----------------------------
