@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# data_scripts/speakers_global.py
-# → summaries/speakers_global.csv (lang_code,population)
+# data_scripts/speakers_rf.py
+# → summaries/speakers_rf.csv (lang_code,population)
 # Проходим ТОЛЬКО по папкам языков: data/<lang>/
 # Для каждого языка берём первого по имени вендора: data/<lang>/<vendor>/stats/<lang>_population.csv
 # Поле: ТОЛЬКО total_speakers_rf (БЕЗ fallback на global). Если есть несколько лет — берём максимальный year.
@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
 DATA_DIR = Path("data")
-OUT_CSV  = Path("summaries/speakers_global.csv")
+OUT_CSV  = Path("summaries/speakers_rf.csv")
 
 # Исключения
 EXCLUDED_LANGS = {"lang", "ru", "rus"}   # убери 'ru','rus', если всё-таки хочешь включить русский

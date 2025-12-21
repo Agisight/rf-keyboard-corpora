@@ -66,7 +66,7 @@ def max_corpus_size_token(raw_dir: Path, lang: str) -> tuple[str | None, float |
 def read_population(stats_dir: Path, lang: str) -> int | None:
     """Берём stats/<lang>_population.csv:
        1) группируем по year,
-       2) внутри года берём максимум по приоритету (global → rf),
+       2) внутри года берём максимум по total_speakers_rf,
        3) выбираем год = max(year) и возвращаем максимум для него.
     """
     path = stats_dir / f"{lang}_population.csv"
@@ -173,12 +173,12 @@ def main():
         stats_dir = vendor_dir / "stats"
         map_path  = vendor_dir / "mapping" / f"{lang}_key_mapping.json"
 
-        world = read_population(stats_dir, lang)
+        rf_population = read_population(stats_dir, lang)
         token, token_value = max_corpus_size_token(raw_dir, lang)
         special_list = extract_special_letters_raw(map_path)
 
-        if world is not None:
-            total_speakers_sum += int(world)
+        if rf_population is not None:
+            total_speakers_sum += int(rf_population)
             total_speakers_count += 1
         if token_value is not None:
             total_corpus_value_sum += token_value
@@ -187,7 +187,7 @@ def main():
         rows.append({
             "Language": lang,
             "Vendor": vendor,
-            "WorldSpeakers": human_int(world),
+            "RFSpeakers": human_int(rf_population),
             "CorpusSize": token or "—",
             "SpecialLetters": ", ".join(special_list) if special_list else "—",
         })
@@ -197,15 +197,15 @@ def main():
     # рендер таблицы
     lines = []
     lines.append("# Dataset Summary\n")
-    lines.append("| Language | Vendor | World speakers | Corpus size | Special letters |")
+    lines.append("| Language | Vendor | RF speakers | Corpus size | Special letters |")
     lines.append("|---|---:|---:|---:|---|")
     for r in rows:
-        lines.append("| {Language} | {Vendor} | {WorldSpeakers} | {CorpusSize} | {SpecialLetters} |".format(**r))
+        lines.append("| {Language} | {Vendor} | {RFSpeakers} | {CorpusSize} | {SpecialLetters} |".format(**r))
 
     # блок итогов
     lines.append("\n**Totals**")
     lines.append(f"- Languages: {len(rows)}")
-    lines.append(f"- With speakers data: {total_speakers_count} · Sum world speakers: {human_int(total_speakers_sum)}")
+    lines.append(f"- With speakers data: {total_speakers_count} · Sum RF speakers: {human_int(total_speakers_sum)}")
     lines.append(f"- With corpus data: {total_corpus_count} · Total corpus size (max per language): {human_token_from_value(total_corpus_value_sum)}")
     lines.append(f"\n_Note: Ё and Ъ excluded from analysis_")
 

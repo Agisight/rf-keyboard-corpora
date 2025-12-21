@@ -21,7 +21,7 @@ echo ""
 
 echo "[2/6] Сбор данных о носителях языков..."
 echo "      → Без изменений (не работает с буквами)"
-python3 rf_data_scripts/02_speakers_global.py
+python3 rf_data_scripts/02_speakers_rf.py
 echo ""
 
 echo "[3/6] Агрегация маппингов..."
@@ -43,6 +43,12 @@ echo "[6/6] Создание статистики маппингов..."
 echo "      → Без изменений (получает чистые данные из 03+05)"
 python3 rf_data_scripts/06_variant_mapping_stats.py
 echo ""
+
+echo "[1/1] Тесты"
+echo "      → Ряд тестов на корректность сгенерированных данных"
+python3 tests/sanity_checks.py || exit 1
+echo ""
+
 
 echo "================================"
 echo "✅ Пайплайн завершён успешно!"

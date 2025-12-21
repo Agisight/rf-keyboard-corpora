@@ -3,8 +3,8 @@
 #
 # Вход:
 #   summaries/variant_mapping_atomic.csv
-#   summaries/speakers_global.csv
-#   summaries/global_symbol_popularity_weighted.csv
+#   summaries/speakers_rf.csv
+#   summaries/rf_symbol_popularity_weighted.csv
 #
 # Выход:
 #   1) summaries/variant_mapping_stats.csv
@@ -27,8 +27,8 @@ ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
 MAP_ATOMIC = Path("summaries/variant_mapping_atomic.csv")
-SPEAKERS   = Path("summaries/speakers_global.csv")
-SYMBOL_POP = Path("summaries/global_symbol_popularity_weighted.csv")
+SPEAKERS   = Path("summaries/speakers_rf.csv")
+SYMBOL_POP = Path("summaries/rf_symbol_popularity_weighted.csv")
 
 OUT_STATS   = Path("summaries/variant_mapping_stats.csv")
 OUT_APPLE   = Path("summaries/variant_mapping_priorities_apple.csv")

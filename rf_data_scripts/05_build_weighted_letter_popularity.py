@@ -4,11 +4,11 @@
 # Считает взвешенную популярность букв/символов с учётом носителей.
 # Источники:
 #   summaries/frequencies_by_language.csv  (lang_code, variant, C_i, M_i, f_i)
-#   summaries/speakers_global.csv          (lang_code, population)
+#   summaries/speakers_rf.csv          (lang_code, population)
 #
 # Выход:
-#   summaries/global_letter_popularity_weighted.csv   (по variant)
-#   summaries/global_symbol_popularity_weighted.csv   (по символам/графемам)
+#   summaries/rf_letter_popularity_weighted.csv   (по variant)
+#   summaries/rf_symbol_popularity_weighted.csv   (по символам/графемам)
 #
 # Правило для символов:
 #   • variant длиной 1 графему → +w этой графеме.
@@ -29,9 +29,9 @@ ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
 FREQ_CSV = Path("summaries/frequencies_by_language.csv")
-SPEAK_CSV = Path("summaries/speakers_global.csv")
-OUT_LETTERS = Path("summaries/global_letter_popularity_weighted.csv")
-OUT_SYMBOLS = Path("summaries/global_symbol_popularity_weighted.csv")
+SPEAK_CSV = Path("summaries/speakers_rf.csv")
+OUT_LETTERS = Path("summaries/rf_letter_popularity_weighted.csv")
+OUT_SYMBOLS = Path("summaries/rf_symbol_popularity_weighted.csv")
 
 VERBOSE = True
 
