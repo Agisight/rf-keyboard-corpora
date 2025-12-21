@@ -149,7 +149,7 @@ def main():
     args = parse_args()
     root = Path(args.root).resolve()
     data_root = root / "data"
-    out_dir = root / "summaries"
+    out_dir = root / "rf_summaries"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_md = out_dir / "SUMMARY.md"
 

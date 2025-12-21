@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# data_scripts/collect_language_frequencies.py → summaries/frequencies_by_language.csv
+# data_scripts/collect_language_frequencies.py → rf_summaries/frequencies_by_language.csv
 # Собирает частоты по ПЕРВОМУ (или заданному) вендору каждого языка и нормализует варианты:
 #  - всё в NFC+UPPERCASE,
 #  - любые строки, содержащие ᵸ / ᴴ / ʰ, сводит к единому варианту 'ᵸ'.
@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
 DATA_DIR = Path("data")
-OUT_CSV  = "summaries/frequencies_by_language.csv"
+OUT_CSV  = "rf_summaries/frequencies_by_language.csv"
 VERBOSE  = True
 
 # исключаем служебный шаблон и русский
@@ -193,7 +193,7 @@ def main():
 
         vprint(f"[{lang}] {vendor}: добавлено {added} строк (M_i={M_seen})")
 
-    Path("summaries").mkdir(parents=True, exist_ok=True)
+    Path("rf_summaries").mkdir(parents=True, exist_ok=True)
     with open(OUT_CSV, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["lang_code","vendor","variant","C_i","M_i","f_i"])
         w.writeheader()

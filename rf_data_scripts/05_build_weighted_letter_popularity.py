@@ -3,12 +3,12 @@
 #
 # Считает взвешенную популярность букв/символов с учётом носителей.
 # Источники:
-#   summaries/frequencies_by_language.csv  (lang_code, variant, C_i, M_i, f_i)
-#   summaries/speakers_rf.csv          (lang_code, population)
+#   rf_summaries/frequencies_by_language.csv  (lang_code, variant, C_i, M_i, f_i)
+#   rf_summaries/speakers_rf.csv          (lang_code, population)
 #
 # Выход:
-#   summaries/rf_letter_popularity_weighted.csv   (по variant)
-#   summaries/rf_symbol_popularity_weighted.csv   (по символам/графемам)
+#   rf_summaries/rf_letter_popularity_weighted.csv   (по variant)
+#   rf_summaries/rf_symbol_popularity_weighted.csv   (по символам/графемам)
 #
 # Правило для символов:
 #   • variant длиной 1 графему → +w этой графеме.
@@ -28,10 +28,10 @@ from typing import Dict, List, Tuple
 ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
-FREQ_CSV = Path("summaries/frequencies_by_language.csv")
-SPEAK_CSV = Path("summaries/speakers_rf.csv")
-OUT_LETTERS = Path("summaries/rf_letter_popularity_weighted.csv")
-OUT_SYMBOLS = Path("summaries/rf_symbol_popularity_weighted.csv")
+FREQ_CSV = Path("rf_summaries/frequencies_by_language.csv")
+SPEAK_CSV = Path("rf_summaries/speakers_rf.csv")
+OUT_LETTERS = Path("rf_summaries/rf_letter_popularity_weighted.csv")
+OUT_SYMBOLS = Path("rf_summaries/rf_symbol_popularity_weighted.csv")
 
 VERBOSE = True
 

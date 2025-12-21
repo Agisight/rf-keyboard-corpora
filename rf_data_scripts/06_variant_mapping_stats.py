@@ -2,14 +2,14 @@
 # data_scripts/06_variant_mapping_stats.py
 #
 # Вход:
-#   summaries/variant_mapping_atomic.csv
-#   summaries/speakers_rf.csv
-#   summaries/rf_symbol_popularity_weighted.csv
+#   rf_summaries/variant_mapping_atomic.csv
+#   rf_summaries/speakers_rf.csv
+#   rf_summaries/rf_symbol_popularity_weighted.csv
 #
 # Выход:
-#   1) summaries/variant_mapping_stats.csv
-#   2) summaries/variant_mapping_priorities_apple.csv
-#   3) summaries/variant_mapping_priorities_unicode.csv
+#   1) rf_summaries/variant_mapping_stats.csv
+#   2) rf_summaries/variant_mapping_priorities_apple.csv
+#   3) rf_summaries/variant_mapping_priorities_unicode.csv
 #
 # Правила отображения долей:
 #   - в stats: 2 знака; <1% → "<1%"; если в группе >1 и топ ≥99.5% → ">99%"
@@ -26,13 +26,13 @@ from typing import Dict, List, Set
 ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
-MAP_ATOMIC = Path("summaries/variant_mapping_atomic.csv")
-SPEAKERS   = Path("summaries/speakers_rf.csv")
-SYMBOL_POP = Path("summaries/rf_symbol_popularity_weighted.csv")
+MAP_ATOMIC = Path("rf_summaries/variant_mapping_atomic.csv")
+SPEAKERS   = Path("rf_summaries/speakers_rf.csv")
+SYMBOL_POP = Path("rf_summaries/rf_symbol_popularity_weighted.csv")
 
-OUT_STATS   = Path("summaries/variant_mapping_stats.csv")
-OUT_APPLE   = Path("summaries/variant_mapping_priorities_apple.csv")
-OUT_UNICODE = Path("summaries/variant_mapping_priorities_unicode.csv")  # ← новое
+OUT_STATS   = Path("rf_summaries/variant_mapping_stats.csv")
+OUT_APPLE   = Path("rf_summaries/variant_mapping_priorities_apple.csv")
+OUT_UNICODE = Path("rf_summaries/variant_mapping_priorities_unicode.csv")  # ← новое
 
 ALMOST_ONE = Decimal("0.995")  # ≥99.5% считаем почти 100% (для правила >99%)
 LT_ONE     = Decimal("0.01")   # всё <1% отображаем как "<1%"

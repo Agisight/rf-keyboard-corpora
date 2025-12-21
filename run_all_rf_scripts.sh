@@ -54,8 +54,8 @@ echo "================================"
 echo "✅ Пайплайн завершён успешно!"
 echo "================================"
 echo ""
-echo "Созданные файлы в summaries/:"
-ls -lh summaries/*.{csv,md} 2>/dev/null | awk '{print "  " $9 " (" $5 ")"}'
+echo "Созданные файлы в rf_summaries/:"
+ls -lh rf_summaries/*.{csv,md} 2>/dev/null | awk '{print "  " $9 " (" $5 ")"}'
 echo ""
 echo "ℹ️  Фильтрация Ё и Ъ:"
 echo "   • Прямая: скрипты 01, 03, 04"

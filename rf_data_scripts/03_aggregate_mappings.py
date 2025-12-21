@@ -14,9 +14,9 @@ data_scripts/aggregate_mappings.py — сводим маппинги «как е
   • ИСКЛЮЧАЕМ Ё и Ъ
 
 Выход:
-  1) summaries/variant_mapping.csv
+  1) rf_summaries/variant_mapping.csv
      base_letter, variant, source_languages, has_sequence, notes
-  2) summaries/variant_mapping_atomic.csv — ТОЛЬКО одногРАФЕМНЫе варианты + спец-правило для ᵸ:
+  2) rf_summaries/variant_mapping_atomic.csv — ТОЛЬКО одногРАФЕМНЫе варианты + спец-правило для ᵸ:
      если ᵸ встречался лишь внутри последовательностей, добавляем агрегированную строку Н,ᵸ (has_sequence=0).
 """
 
@@ -33,8 +33,8 @@ from typing import Dict, List, Tuple, Optional
 ROOT = Path(__file__).resolve().parent.parent
 os.chdir(ROOT)
 
-OUT_CSV_FULL   = "summaries/variant_mapping.csv"
-OUT_CSV_ATOMIC = "summaries/variant_mapping_atomic.csv"
+OUT_CSV_FULL   = "rf_summaries/variant_mapping.csv"
+OUT_CSV_ATOMIC = "rf_summaries/variant_mapping_atomic.csv"
 GLOB_PAT = "data/**/mapping/*_key_mapping.json"
 VERBOSE  = True
 
@@ -209,7 +209,7 @@ def aggregate_and_save() -> None:
         })
     rows_out.sort(key=lambda x: (x["base_letter"], x["variant"]))
 
-    Path("summaries").mkdir(parents=True, exist_ok=True)
+    Path("rf_summaries").mkdir(parents=True, exist_ok=True)
     # 1) Полный файл
     with open(OUT_CSV_FULL, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(
