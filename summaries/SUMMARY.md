@@ -1,6 +1,6 @@
 # Dataset Summary
 
-| Language | Vendor | World speakers | Corpus size | Special letters |
+| Language | Vendor | RF speakers | Corpus size | Special letters |
 |---|---:|---:|---:|---|
 | abk | Tamaz_Kharchlaa | 4 255 | 80M | Ҵ, Ӷ, Қ, Ҟ, Ҳ, ДӘ, ЖЬ, ЖӘ, Ә, Ӡ, ӠӘ, Ԥ, Ҭ, Џ, ЏЬ, Ҷ, Ҽ, Ҿ, Ҩ |
 | abq | maxmerben | 40 154 | 470K | Ӏ |
@@ -58,7 +58,7 @@
 
 **Totals**
 - Languages: 53
-- With speakers data: 53 · Sum world speakers: 17 588 062
+- With speakers data: 53 · Sum RF speakers: 17 588 062
 - With corpus data: 53 · Total corpus size (max per language): 6.1B
 
 _Note: Ё and Ъ excluded from analysis_
