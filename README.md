@@ -60,12 +60,7 @@
 1. **Соберите корпус** → `raw/`, один символ = один токен.
 
 2. **Вычислите частоты**
-   – локально:
-
-   ```bash
-   python tools/freq/char_freq.py raw/tyv_mono_5M.txt \
-        > frequencies/tyv_monocorpus_freq.csv
-   ```
+   – на Hugging Face загрузите корпус и сделайте что-то подобное по инструкции на этой [странице](https://github.com/Agisight/rf-keyboard-corpora/blob/rf/hf_freq_analyze.md) – есть встроенный механизм подсчета данных у вашего монокорпуса.
 
 3. **Создайте `lang_key_mapping.txt` или `lang_key_mapping.json`** вручную в удобном редакторе.
 
