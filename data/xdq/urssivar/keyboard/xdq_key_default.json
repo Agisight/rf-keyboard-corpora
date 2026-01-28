@@ -153,6 +153,11 @@
       "label": "Б",
       "row": 3,
       "column": 7
+    },
+    {
+      "label": "Ӏ",
+      "row": 3,
+      "column": 8
     }
   ],
   "long_press": [
@@ -177,19 +182,14 @@
     {
       "key": "Е",
       "alternates": [
-        "Э"
+        "Э",
+        "Ё"
       ]
     },
     {
       "key": "У",
       "alternates": [
         "Ю"
-      ]
-    },
-    {
-      "key": "Ь",
-      "alternates": [
-        "Ӏ"
       ]
     }
   ]
