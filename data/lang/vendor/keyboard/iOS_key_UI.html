@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Клавиатура РФ (iOS-стиль). V1.3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0; padding: 0; background: #d1d1d6;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      height: 100vh; font-family: "Roboto";
+    }
+    .input-area { width: 90%; margin-bottom: 12px; }
+    textarea {
+      min-height: 200px;
+      width: 100%; font-size: 18px; padding: 10px;
+      border-radius: 10px; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      resize: none; font-family: "Roboto";
+    }
+    .keyboard {
+      background: #ebebf0; border-radius: 28px; padding: 12px;
+      margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .row { display: flex; justify-content: center; margin: 6px 0; }
+
+    .key {
+      height: 50px; background: #fff; border: none; border-radius: 8px;
+      margin: 2px; display: flex; align-items: center; justify-content: center;
+      padding: 0 12px; min-width: 36px; text-align: center; font-size: 24px; line-height: 1;
+      color: #000; box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+      transition: background 0.1s, transform 0.05s; user-select: none; position: relative;
+    }
+    .key:active { background: #dedede; transform: translateY(1px); }
+
+    .popup {
+      position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+      font-family: "Roboto"; display: flex; background: white; border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); padding: 6px; z-index: 10;
+    }
+    .popup span { padding: 6px 10px; font-size: 18px; cursor: pointer; user-select: none; }
+    .popup span:hover, .popup span.selected { background: #eee; border-radius: 4px; }
+    .key * { pointer-events: none; }
+
+    .key.control { min-width: 110px; font-weight: 500; }
+    .key.space   { min-width: 400px; }
+    .key.enter   { min-width: 110px; }
+    .key.delete  { min-width: 36px; }
+    .key.shift   { min-width: 36px; }
+
+    .row.control-row { margin: 6px 0; }
+
+    .key.shift.active { background: #dfe7ff; }
+    .key.shift.locked { background: #c8d6ff; box-shadow: 0 0 0 2px #7da2ff inset; }
+  </style>
+
+  <!-- Встроенная раскладка -->
+    <script id="rf-layout" type="application/json">
+    {"version":"1.1","layout_name":"Russian Federation","vendor":"Ali Kuzhuget","rows":4,"keys":[{"label":"Й","row":1,"column":0},{"label":"Ц","row":1,"column":1},{"label":"У","row":1,"column":2},{"label":"К","row":1,"column":3},{"label":"Е","row":1,"column":4},{"label":"Н","row":1,"column":5},{"label":"Г","row":1,"column":7},{"label":"Ш","row":1,"column":8},{"label":"Щ","row":1,"column":9},{"label":"З","row":1,"column":10},{"label":"Х","row":1,"column":11},{"label":"Ф","row":2,"column":0},{"label":"Ы","row":2,"column":1},{"label":"В","row":2,"column":2},{"label":"А","row":2,"column":3},{"label":"П","row":2,"column":4},{"label":"Р","row":2,"column":5},{"label":"О","row":2,"column":6},{"label":"Л","row":2,"column":7},{"label":"Д","row":2,"column":8},{"label":"Ж","row":2,"column":9},{"label":"Э","row":2,"column":10},{"label":"Я","row":3,"column":0},{"label":"Ч","row":3,"column":1},{"label":"С","row":3,"column":2},{"label":"М","row":3,"column":3},{"label":"И","row":3,"column":4},{"label":"Т","row":3,"column":5},{"label":"Ь","row":3,"column":6},{"label":"Б","row":3,"column":7},{"label":"Ю","row":3,"column":8}],"long_press":[{"key":"Й","alternates":["Ї","Ј","Ѵ"]},{"key":"Ц","alternates":["Ҵ"]},{"key":"У","alternates":["Ў","Ү","Ұ","Ӱ","Ӳ","Ӯ"]},{"key":"К","alternates":["Қ","Ҡ","Ҟ","Ѯ"]},{"key":"Е","alternates":["Ё","Є","Ӗ","Ѣ","Е̄"]},{"key":"Н","alternates":["Ң","Ҥ","Ӈ","ᵸ"]},{"key":"Г","alternates":["Ғ","Ґ","Ҕ","Ӷ"]},{"key":"Ш","alternates":["Ҽ"]},{"key":"Щ","alternates":["Ҿ"]},{"key":"З","alternates":["Ҙ","Ӡ","Ӟ"]},{"key":"Х","alternates":["Ҳ","Һ"]},{"key":"Ф","alternates":["Ѳ"]},{"key":"Р","alternates":["◌́","◌̈","◌̄","◌̋"]},{"key":"Ы","alternates":["Ӹ"]},{"key":"А","alternates":["Ӕ","Ӑ","Ӓ","А̄"]},{"key":"П","alternates":["Ԥ","Ѱ"]},{"key":"О","alternates":["Ө","Ӧ","О̄","Ѡ"]},{"key":"Л","alternates":["Ӆ"]},{"key":"Ж","alternates":["Җ","Ӝ","Ӂ","Ѥ"]},{"key":"Э","alternates":["Ә","Ӭ"]},{"key":"Я","alternates":["Џ","Ѧ"]},{"key":"Ч","alternates":["Ҷ","Ӵ","Ӌ"]},{"key":"С","alternates":["Ҫ","С̄"]},{"key":"И","alternates":["І","Ӥ","Ӣ"]},{"key":"Т","alternates":["Ҭ"]},{"key":"Ь","alternates":["Ъ","Ѫ"]},{"key":"Б","alternates":["Ӏ"]},{"key":"Ю","alternates":["Ҩ","Ѭ"]}]}
+  </script>
+</head>
+<body>
+  <h2 style="position:absolute; top:44px; left:0; right:0; text-align:center; font-family:'Roboto'; font-weight:500;">
+    Клавиатура РФ
+  </h2>
+
+  <div class="input-area">
+    <textarea id="output" rows="3" placeholder="Введите текст..." autofocus></textarea>
+  </div>
+
+  <div class="keyboard" id="keyboard"></div>
+
+  <script>
+    const output = document.getElementById("output");
+    const keyboard = document.getElementById("keyboard");
+
+    function lastNonSpaceCharBeforeCaret() {
+      const s = output.value.normalize('NFC');
+      const pos = output.selectionStart;
+      // ищем первую не-пробельную графему слева от курсора
+      for (let i = pos; i > 0; ) {
+        const prev = prevGraphemeBefore(i, s);
+        if (!prev) return null;
+        if (!/^\s+$/.test(prev.text)) return prev.text;
+        i = prev.start;
+      }
+      return null;
+    }
+
+    // [SHIFT LOGIC] 0 - off, 1 - one-time, 2 - locked
+    let shiftState = 1;          // старт: как на iOS — включённый Shift (one-time)
+    let lastShiftTap = 0;        // для двойного тапа (капс-лок)
+    let autoCapNext = false;     // важно: false, чтобы не держать две буквы заглавными подряд
+
+    let numberMode = false;      // задел на будущий режим 123
+
+    // ===== Утилиты для курсора и графем =====
+    const seg = new Intl.Segmenter('ru', { granularity: 'grapheme' });
+    const stripDottedCircle = s => s.replace(/\u25CC/g, '');
+
+    function focusOutput() {
+      // чтобы курсор всегда виден
+      output.focus();
+    }
+
+    function getSel() {
+      return { start: output.selectionStart, end: output.selectionEnd };
+    }
+
+    function setSel(pos) {
+      output.setSelectionRange(pos, pos);
+    }
+
+    function prevGraphemeBefore(index, s) {
+      // вернёт {start, end, text} предыдущей графемы перед index
+      let prev = null;
+      for (const g of seg.segment(s)) {
+        if (g.index >= index) break;
+        prev = { start: g.index, end: g.index + g.segment.length, text: g.segment };
+      }
+      return prev;
+    }
+
+    function nextGraphemeAtOrAfter(index, s) {
+      for (const g of seg.segment(s)) {
+        if (g.index >= index) return { start: g.index, end: g.index + g.segment.length, text: g.segment };
+      }
+      return null;
+    }
+
+    function appendCharSmartAtCaret(raw) {
+      focusOutput();
+      const ch = stripDottedCircle(raw);
+      const onlyCombining = /^[\p{Mn}]+$/u.test(ch);
+
+      const s = output.value.normalize('NFC');
+      let { start, end } = getSel();
+
+      // если есть выделение — удалим его
+      let before = s.slice(0, start);
+      const after = s.slice(end);
+
+      if (onlyCombining && start > 0) {
+        // прибавляем комбинируемый знак к предыдущей графеме от курсора
+        const prev = prevGraphemeBefore(start, s);
+        if (prev) {
+          const base = prev.text + ch;
+          output.value = (s.slice(0, prev.start) + base + s.slice(prev.end)).normalize('NFC');
+          const newPos = prev.start + base.normalize('NFC').length;
+          setSel(newPos);
+          return;
+        }
+      }
+
+      // обычная вставка в курсор
+      output.value = (before + ch + after).normalize('NFC');
+      const newPos = (before + ch).normalize('NFC').length;
+      setSel(newPos);
+    }
+
+    function deleteOneGraphemeLeftOfCaret() {
+      focusOutput();
+      const s = output.value.normalize('NFC');
+      let { start, end } = getSel();
+
+      if (start !== end) {
+        // удаляем выделение
+        output.value = (s.slice(0, start) + s.slice(end)).normalize('NFC');
+        setSel(start);
+        return;
+      }
+
+      if (start === 0) return; // нечего удалять
+
+      const prev = prevGraphemeBefore(start, s);
+      if (!prev) return;
+
+      output.value = (s.slice(0, prev.start) + s.slice(prev.end)).normalize('NFC');
+      setSel(prev.start);
+    }
+
+    // ===== Логика шифта/регистра =====
+    function isEffectiveShift() {
+      return shiftState > 0 || autoCapNext;
+    }
+
+    function paintShiftKey(elFromMake) {
+      const btn = elFromMake || keyboard.querySelector(".key.shift");
+      if (!btn) return;
+      btn.classList.toggle("locked", shiftState === 2);
+      // активная подсветка — когда one-time или автокапс активен
+      const active = shiftState === 1 || (shiftState === 0 && autoCapNext) || shiftState === 2;
+      btn.classList.toggle("active", active);
+    }
+
+    function renderCase() {
+      const up = isEffectiveShift();
+      keyboard.querySelectorAll(".key:not(.control)").forEach(k => {
+        const base = k.dataset.base || k.textContent;
+        if (/\p{L}/u.test(base)) {
+          k.textContent = up ? base.toUpperCase() : base.toLowerCase();
+        } else {
+          k.textContent = base;
+        }
+      });
+    }
+
+    function insertCharWithShiftRules(ch) {
+      const isLetter = /\p{L}/u.test(ch);
+
+      // === SMART PERIOD: двойной пробел -> ". " ===
+      if (ch === " ") {
+        const s = output.value.normalize('NFC');
+        const { start, end } = getSel();
+
+        // если есть выделение — сначала удалим, чтобы корректно смотреть "предыдущие"
+        if (start !== end) {
+          output.value = (s.slice(0, start) + s.slice(end)).normalize('NFC');
+          setSel(start);
+        }
+
+        const pos = output.selectionStart;
+        // графема слева
+        const prev = prevGraphemeBefore(pos, output.value);
+        const prevChar = prev?.text ?? "";
+
+        // 2.1) ДВОЙНОЙ ПРОБЕЛ -> ". "
+        if (prevChar === " ") {
+          // удаляем предыдущий пробел и вставляем ". "
+          output.value = (output.value.slice(0, prev.start) + ". " + output.value.slice(pos)).normalize('NFC');
+          const newPos = prev.start + 2; // курсор после ". "
+          setSel(newPos);
+
+          // автокапс для следующей буквы
+          autoCapNext = true;
+          if (shiftState === 0) shiftState = 1;
+          paintShiftKey();
+          renderCase();
+          focusOutput();
+          return;
+        }
+
+        // 2.2) ПОСЛЕ ПУНКТУАЦИИ + ПРОБЕЛ — автокапс остаётся
+        if (/[.!?…]/.test(prevChar)) {
+          autoCapNext = true;
+          if (shiftState === 0) shiftState = 1;
+          paintShiftKey();
+          renderCase();
+        }
+
+        // обычная вставка пробела
+        appendCharSmartAtCaret(" ");
+        focusOutput();
+        return;
+      }
+
+      // === ENTER — тоже включает автокапс ===
+      if (ch === "\n") {
+        appendCharSmartAtCaret("\n");
+        autoCapNext = true;
+        if (shiftState === 0) shiftState = 1;
+        paintShiftKey();
+        renderCase();
+        focusOutput();
+        return;
+      }
+
+      // === Знаки конца предложения — включаем автокапс для следующей буквы ===
+      if (/[.!?…]/.test(ch)) {
+        appendCharSmartAtCaret(ch);
+        autoCapNext = true;
+        if (shiftState === 0) shiftState = 1;
+        paintShiftKey();
+        renderCase();
+        focusOutput();
+        return;
+      }
+
+      // === Буквы/прочее ===
+      const up = (shiftState > 0 || autoCapNext);
+      const outChar = isLetter ? (up ? ch.toUpperCase() : ch.toLowerCase()) : ch;
+      appendCharSmartAtCaret(outChar);
+
+      if (isLetter) {
+        // одноразовый шифт — снимаем сразу после первой буквы
+        if (shiftState === 1) shiftState = 0;
+        // автокапс израсходован
+        autoCapNext = false;
+      }
+
+      paintShiftKey();
+      renderCase();
+      focusOutput();
+    }
+
+
+    // ===== Построение клавиатуры =====
+    function buildKeyboard(layout) {
+      keyboard.innerHTML = "";
+      const rows = [];
+      for (let i = 0; i < layout.rows; i++) rows.push([]);
+
+      layout.keys.forEach(key => {
+        const keyEl = document.createElement("div");
+        keyEl.className = "key";
+        keyEl.dataset.base = key.label;
+        const long = layout.long_press?.find(lp => lp.key === key.label);
+        if (long) keyEl.dataset.alt = long.alternates.join(" ");
+        rows[key.row].push({ column: key.column, el: keyEl });
+      });
+
+      rows.forEach((rowKeys, rowIndex) => {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "row";
+        rowKeys.sort((a, b) => a.column - b.column);
+
+        if (rowIndex === 3) rowDiv.appendChild(makeControlKey("⇧", "shift"));
+        rowKeys.forEach(k => rowDiv.appendChild(k.el));
+        if (rowIndex === 3) rowDiv.appendChild(makeControlKey("⌫", "delete"));
+
+        keyboard.appendChild(rowDiv);
+      });
+
+      const ctrl = document.createElement("div");
+      ctrl.className = "row control-row";
+      ctrl.append(
+        makeControlKey("123", "digits"),
+        makeControlKey("Пробел", "space"),
+        makeControlKey("⏎", "enter")
+      );
+      keyboard.appendChild(ctrl);
+
+      // поведение букв: long-press и обычный клик
+      let holdTimer;
+      let longPressed = false;
+
+      keyboard.querySelectorAll(".key:not(.control)").forEach(key => {
+        key.addEventListener("mousedown", (e) => {
+          focusOutput();
+          const target = e.currentTarget;
+          const alt = target.getAttribute("data-alt");
+          longPressed = false;
+
+          if (alt) {
+            holdTimer = setTimeout(() => {
+              longPressed = true;
+              const popup = document.createElement("div");
+              popup.className = "popup";
+              const chars = alt.split(" ");
+              const upcase = isEffectiveShift();
+
+              chars.forEach(char => {
+                const span = document.createElement("span");
+                if (/\p{L}/u.test(char)) {
+                  span.textContent = upcase ? char.toUpperCase() : char.toLowerCase();
+                } else {
+                  span.textContent = char;
+                }
+                popup.appendChild(span);
+              });
+
+              target.appendChild(popup);
+
+              const spans = popup.querySelectorAll("span");
+              let selectedIndex = 0;
+              spans[selectedIndex].classList.add("selected");
+
+              const moveListener = (moveEvent) => {
+                const rect = popup.getBoundingClientRect();
+                const relX = moveEvent.clientX - rect.left;
+                const widthPerItem = rect.width / chars.length;
+                const index = Math.min(chars.length - 1, Math.max(0, Math.floor(relX / widthPerItem)));
+                spans.forEach(s => s.classList.remove("selected"));
+                spans[index].classList.add("selected");
+                selectedIndex = index;
+              };
+
+              const upListener = () => {
+                const chosen = spans[selectedIndex].textContent;
+                insertCharWithShiftRules(chosen);
+                popup.remove();
+                document.removeEventListener("mousemove", moveListener);
+                document.removeEventListener("mouseup", upListener);
+              };
+
+              document.addEventListener("mousemove", moveListener);
+              document.addEventListener("mouseup", upListener);
+            }, 330);
+          }
+        });
+
+        key.addEventListener("mouseup", (e) => {
+          focusOutput();
+          clearTimeout(holdTimer);
+          if (!longPressed) {
+            const base = e.currentTarget.dataset.base || e.currentTarget.textContent[0];
+            insertCharWithShiftRules(base);
+          }
+        });
+      });
+
+      renderCase();
+      paintShiftKey();
+      focusOutput();
+    }
+
+    function makeControlKey(label, kind) {
+      const el = document.createElement("div");
+      el.className = "key control " + kind;
+      el.textContent = label;
+
+      el.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        focusOutput();
+        switch (kind) {
+          case "shift": {
+            const now = performance.now();
+            if (now - lastShiftTap < 300) {
+              shiftState = 2;            // капс-лок
+            } else {
+              shiftState = (shiftState === 0) ? 1 : (shiftState === 1 ? 0 : 0);
+            }
+            lastShiftTap = now;
+            // включение/выключение шифта сбрасывает автокапс — как на iOS
+            if (shiftState !== 0) autoCapNext = false;
+
+            renderCase(); paintShiftKey(el);
+            break;
+          }
+          case "digits":
+            numberMode = !numberMode; // пока no-op
+            el.classList.toggle("active", numberMode);
+            break;
+          case "space":
+            insertCharWithShiftRules(" ");
+            break;
+          case "enter":
+            insertCharWithShiftRules("\n");
+            break;
+          case "delete":
+            deleteOneGraphemeLeftOfCaret();
+            break;
+        }
+      });
+      return el;
+    }
+
+    // Инициализация
+    const LAYOUT = JSON.parse(document.getElementById('rf-layout').textContent);
+    buildKeyboard(LAYOUT);
+  </script>
+</body>
+</html>
