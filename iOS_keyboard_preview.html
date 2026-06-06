@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Предпросмотр клавиатуры (iOS-стиль)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #d1d1d6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .input-area {
+      width: 90%;
+      margin-bottom: 12px;
+    }
+    textarea {
+      width: 100%;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      resize: none;
+    }
+    .keyboard {
+      background: #ebebf0;
+      border-radius: 28px;
+      padding: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .row {
+      display: flex;
+      justify-content: center;
+      margin: 6px 0;
+    }
+    .key {
+      background: #ffffff;
+      border: none;
+      border-radius: 8px;
+      margin: 2px;
+      padding: 16px 12px;
+      min-width: 36px;
+      text-align: center;
+      font-size: 20px;
+      color: #000;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+      transition: background 0.1s;
+      user-select: none;
+      position: relative;
+    }
+    .long-press {
+      top: 0;
+      right: 0;
+      position: absolute;
+      margin: 0.2em;
+      color: #888;
+    }
+    .key:active {
+      background: #dedede;
+    }
+    .popup {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      padding: 6px;
+      z-index: 10;
+    }
+    .popup span {
+      padding: 6px 10px;
+      font-size: 18px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .popup span:hover, .popup span.selected {
+      background: #eee;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="input-area">
+    <textarea id="output" rows="3" placeholder="Введите текст..."></textarea>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <input type="file" id="fileInput" accept=".json" style="display:none">
+    <button onclick="document.getElementById('fileInput').click()">📁 Загрузить layout.json</button>
+  </div>
+  <div class="keyboard" id="keyboard"></div>
+  <script>
+    const output = document.getElementById("output");
+    const keyboard = document.getElementById("keyboard");
+
+    document.getElementById("fileInput").addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const layout = JSON.parse(e.target.result);
+          buildKeyboard(layout);
+        } catch (err) {
+          alert("Ошибка при чтении layout.json");
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    function buildKeyboard(layout) {
+      keyboard.innerHTML = "";
+      const rows = [];
+      for (let i = 0; i < layout.rows; i++) rows.push([]);
+
+      layout.keys.forEach(key => {
+        const keyEl = document.createElement("div");
+        keyEl.className = "key";
+        keyEl.textContent = key.label;
+
+        const long = layout.long_press?.find(lp => lp.key === key.label);
+        if (long) {
+          keyEl.dataset.alt = long.alternates.join(" ");
+          const longDiv = document.createElement("div");
+          longDiv.className = "long-press";
+          longDiv.textContent = long.alternates[0];
+          keyEl.appendChild(longDiv);
+        }
+
+        rows[key.row].push({ column: key.column, el: keyEl });
+      });
+
+      rows.forEach(rowKeys => {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "row";
+        rowKeys.sort((a, b) => a.column - b.column).forEach(k => rowDiv.appendChild(k.el));
+        keyboard.appendChild(rowDiv);
+      });
+
+      let holdTimer;
+      let longPressed = false;
+      let currentPopup = null;
+
+      keyboard.querySelectorAll(".key").forEach(key => {
+        key.addEventListener("mousedown", (e) => {
+          const target = e.target;
+          const alt = target.getAttribute("data-alt");
+          longPressed = false;
+
+          if (alt) {
+            holdTimer = setTimeout(() => {
+              longPressed = true;
+              const popup = document.createElement("div");
+              popup.className = "popup";
+              const chars = alt.split(" ");
+              chars.forEach((char, index) => {
+                const span = document.createElement("span");
+                span.textContent = char;
+                popup.appendChild(span);
+              });
+              target.appendChild(popup);
+              currentPopup = popup;
+
+              const spans = popup.querySelectorAll("span");
+              let selectedIndex = 0;
+              spans[selectedIndex].classList.add("selected");
+
+              const moveListener = (moveEvent) => {
+                const rect = popup.getBoundingClientRect();
+                const relX = moveEvent.clientX - rect.left;
+                const widthPerItem = rect.width / chars.length;
+                const index = Math.min(chars.length - 1, Math.max(0, Math.floor(relX / widthPerItem)));
+                spans.forEach(s => s.classList.remove("selected"));
+                spans[index].classList.add("selected");
+                selectedIndex = index;
+              };
+
+              const upListener = () => {
+                output.value += chars[selectedIndex];
+                popup.remove();
+                document.removeEventListener("mousemove", moveListener);
+                document.removeEventListener("mouseup", upListener);
+              };
+
+              document.addEventListener("mousemove", moveListener);
+              document.addEventListener("mouseup", upListener);
+            }, 330);
+          }
+        });
+
+        key.addEventListener("mouseup", (e) => {
+          clearTimeout(holdTimer);
+          if (!longPressed) {
+            output.value += e.target.textContent;
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
