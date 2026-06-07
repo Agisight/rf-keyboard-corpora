@@ -3,32 +3,5 @@
   "layout_name": "Vendor Default",
   "vendor": "VendorCo",
   "rows": 4,
-  "keys": [
-    {
-      "label": "Й",
-      "row": 1,
-      "column": 1
-    },
-    {
-      "label": "Ө",
-      "row": 2,
-      "column": 7
-    }
-  ],
-  "long_press": [
-    {
-      "key": "О",
-      "alternates": [
-        "Ӧ",
-        "Ө"
-      ]
-    },
-    {
-      "key": "У",
-      "alternates": [
-        "Ӱ",
-        "Ü"
-      ]
-    }
-  ]
+  "keys": []
 }

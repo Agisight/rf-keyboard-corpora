@@ -2,11 +2,7 @@
 
 ## raw/
 Содержит монокорпуса различных размеров:
-- ava_mono_100k.txt
-- ava_mono_1M.txt
-- ava_mono_10M.txt
-- ava_mono_100M.txt
-- ava_mono_1T.txt
+- ava_mono_4.5M.txt
 
 ## stats/
 Один файл ava_population.csv со столбцами:
