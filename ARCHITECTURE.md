@@ -14,7 +14,7 @@ Language Metadata
 ↓
 Character Mapping
 ↓
-Long-Press Optimization
+Frequency-Weighted Long-Press Optimization
 ↓
 layout.json Generation
 ↓
