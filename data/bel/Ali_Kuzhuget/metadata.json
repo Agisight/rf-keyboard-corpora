@@ -1,8 +1,22 @@
 {
   "version": "1.0",
   "vendor": "Ali Kuzhuget",
-  "source": "https://huggingface.co/datasets/WiNE-iNEFF/1M-OpenOrca_be",
+  "language": "Belarusian",
+  "language_code": "bel",
+  "script": "Cyrillic",
+  "corpus_size_words": 1000000000,
   "date_collected": "2025-08-01",
   "contact": "agisight@gmail.com",
-  "description": "Корпуса из публичных источников в HF."
+  "sources": [
+    {
+      "name": "WiNE-iNEFF 1M OpenOrca Belarusian",
+      "url": "https://huggingface.co/datasets/WiNE-iNEFF/1M-OpenOrca_be",
+      "description": "Corpus from public sources on Hugging Face."
+    },
+    {
+      "name": "National Corpus of the Belarusian Language",
+      "url": "https://bnkorpus.info",
+      "description": "National Corpus of the Belarusian Language."
+    }
+  ]
 }
