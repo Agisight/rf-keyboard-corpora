@@ -154,8 +154,7 @@
 
       keyboard.querySelectorAll(".key").forEach(key => {
         key.addEventListener("mousedown", (e) => {
-          const target = e.target;
-          const alt = target.getAttribute("data-alt");
+          const alt = key.getAttribute("data-alt");
           longPressed = false;
 
           if (alt) {
@@ -169,7 +168,7 @@
                 span.textContent = char;
                 popup.appendChild(span);
               });
-              target.appendChild(popup);
+              key.appendChild(popup);
               currentPopup = popup;
 
               const spans = popup.querySelectorAll("span");
@@ -202,7 +201,7 @@
         key.addEventListener("mouseup", (e) => {
           clearTimeout(holdTimer);
           if (!longPressed) {
-            output.value += e.target.textContent;
+            output.value += key.firstChild.nodeValue;
           }
         });
       });
