@@ -2,7 +2,7 @@
 
 ## raw/
 Содержит монокорпуса различных размеров:
-- bel_mono_1B.txt
+- bel_mono_53M.txt
 
 ## stats/
 Один файл bel_population.csv со столбцами:
