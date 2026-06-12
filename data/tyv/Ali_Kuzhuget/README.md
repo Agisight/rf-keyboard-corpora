@@ -2,11 +2,7 @@
 
 ## raw/
 Содержит монокорпуса различных размеров:
-- tyv_mono_100k.txt
-- tyv_mono_1M.txt
-- tyv_mono_10M.txt
 - tyv_mono_100M.txt
-- tyv_mono_1T.txt
 
 ## stats/
 Один файл tyv_population.csv со столбцами:
