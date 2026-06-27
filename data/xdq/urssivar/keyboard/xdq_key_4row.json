@@ -5,7 +5,7 @@
   "rows": 5,
   "keys": [
     {
-      "label": ",",
+      "label": "'",
       "row": 1,
       "column": 0
     },
@@ -55,7 +55,7 @@
       "column": 9
     },
     {
-      "label": ".",
+      "label": "\"",
       "row": 1,
       "column": 10
     },
