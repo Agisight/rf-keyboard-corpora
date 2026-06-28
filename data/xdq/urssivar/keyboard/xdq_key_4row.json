@@ -1,199 +1,250 @@
 {
   "version": "1.2",
-  "layout_name": "Kaitag (ЙЦУКЕН)",
+  "layout_name": "Kaitag (ЙЦУКЕН + extended)",
   "vendor": "Urssivar",
-  "rows": 4,
+  "rows": 5,
   "keys": [
     {
-      "label": "Й",
+      "label": "'",
       "row": 1,
       "column": 0
     },
     {
-      "label": "Ц",
+      "label": "!",
       "row": 1,
       "column": 1
     },
     {
-      "label": "У",
+      "label": "?",
       "row": 1,
       "column": 2
-    },
-    {
-      "label": "К",
-      "row": 1,
-      "column": 3
-    },
-    {
-      "label": "Е",
-      "row": 1,
-      "column": 4
-    },
-    {
-      "label": "Н",
-      "row": 1,
-      "column": 5
-    },
-    {
-      "label": "Г",
-      "row": 1,
-      "column": 6
-    },
-    {
-      "label": "Ш",
-      "row": 1,
-      "column": 7
-    },
-    {
-      "label": "Ӏ",
-      "row": 1,
-      "column": 8
-    },
-    {
-      "label": "З",
-      "row": 1,
-      "column": 9
-    },
-    {
-      "label": "Х",
-      "row": 1,
-      "column": 10
     },
     {
       "label": "Ҳ",
-      "row": 2,
-      "column": 0
+      "row": 1,
+      "column": 3
     },
     {
       "label": "Ҡ",
-      "row": 2,
-      "column": 1
-    },
-    {
-      "label": "В",
-      "row": 2,
-      "column": 2
-    },
-    {
-      "label": "А",
-      "row": 2,
-      "column": 3
-    },
-    {
-      "label": "П",
-      "row": 2,
+      "row": 1,
       "column": 4
-    },
-    {
-      "label": "Р",
-      "row": 2,
-      "column": 5
-    },
-    {
-      "label": "О",
-      "row": 2,
-      "column": 6
-    },
-    {
-      "label": "Л",
-      "row": 2,
-      "column": 7
-    },
-    {
-      "label": "Д",
-      "row": 2,
-      "column": 8
-    },
-    {
-      "label": "Ж",
-      "row": 2,
-      "column": 9
-    },
-    {
-      "label": "Ғ",
-      "row": 2,
-      "column": 10
     },
     {
       "label": "Ә",
-      "row": 3,
-      "column": 0
-    },
-    {
-      "label": "Ч",
-      "row": 3,
-      "column": 1
-    },
-    {
-      "label": "С",
-      "row": 3,
-      "column": 2
-    },
-    {
-      "label": "М",
-      "row": 3,
-      "column": 3
-    },
-    {
-      "label": "И",
-      "row": 3,
-      "column": 4
-    },
-    {
-      "label": "Т",
-      "row": 3,
+      "row": 1,
       "column": 5
     },
     {
       "label": "Һ",
+      "row": 1,
+      "column": 6
+    },
+    {
+      "label": "Ӏ",
+      "row": 1,
+      "column": 7
+    },
+    {
+      "label": "Ғ",
+      "row": 1,
+      "column": 8
+    },
+    {
+      "label": "—",
+      "row": 1,
+      "column": 9
+    },
+    {
+      "label": "\"",
+      "row": 1,
+      "column": 10
+    },
+    {
+      "label": "Й",
+      "row": 2,
+      "column": 0
+    },
+    {
+      "label": "Ц",
+      "row": 2,
+      "column": 1
+    },
+    {
+      "label": "У",
+      "row": 2,
+      "column": 2
+    },
+    {
+      "label": "К",
+      "row": 2,
+      "column": 3
+    },
+    {
+      "label": "Е",
+      "row": 2,
+      "column": 4
+    },
+    {
+      "label": "Н",
+      "row": 2,
+      "column": 5
+    },
+    {
+      "label": "Г",
+      "row": 2,
+      "column": 6
+    },
+    {
+      "label": "Ш",
+      "row": 2,
+      "column": 7
+    },
+    {
+      "label": "Щ",
+      "row": 2,
+      "column": 8
+    },
+    {
+      "label": "З",
+      "row": 2,
+      "column": 9
+    },
+    {
+      "label": "Х",
+      "row": 2,
+      "column": 10
+    },
+    {
+      "label": "Ф",
+      "row": 3,
+      "column": 0
+    },
+    {
+      "label": "Ы",
+      "row": 3,
+      "column": 1
+    },
+    {
+      "label": "В",
+      "row": 3,
+      "column": 2
+    },
+    {
+      "label": "А",
+      "row": 3,
+      "column": 3
+    },
+    {
+      "label": "П",
+      "row": 3,
+      "column": 4
+    },
+    {
+      "label": "Р",
+      "row": 3,
+      "column": 5
+    },
+    {
+      "label": "О",
       "row": 3,
       "column": 6
     },
     {
-      "label": "Б",
+      "label": "Л",
       "row": 3,
       "column": 7
+    },
+    {
+      "label": "Д",
+      "row": 3,
+      "column": 8
+    },
+    {
+      "label": "Ж",
+      "row": 3,
+      "column": 9
+    },
+    {
+      "label": "Э",
+      "row": 3,
+      "column": 10
+    },
+    {
+      "label": "Я",
+      "row": 4,
+      "column": 0
+    },
+    {
+      "label": "Ч",
+      "row": 4,
+      "column": 1
+    },
+    {
+      "label": "С",
+      "row": 4,
+      "column": 2
+    },
+    {
+      "label": "М",
+      "row": 4,
+      "column": 3
+    },
+    {
+      "label": "И",
+      "row": 4,
+      "column": 4
+    },
+    {
+      "label": "Т",
+      "row": 4,
+      "column": 5
+    },
+    {
+      "label": "Ь",
+      "row": 4,
+      "column": 6
+    },
+    {
+      "label": "Б",
+      "row": 4,
+      "column": 7
+    },
+    {
+      "label": "Ю",
+      "row": 4,
+      "column": 8
     }
   ],
   "long_press": [
     {
+      "key": "Ә",
+      "alternates": [
+        "Ә́"
+      ]
+    },
+    {
       "key": "У",
       "alternates": [
-        "Ю",
         "У́"
       ]
     },
     {
       "key": "Е",
       "alternates": [
-        "Э",
         "Е́",
         "Ё"
       ]
     },
     {
-      "key": "Ш",
+      "key": "Ы",
       "alternates": [
-        "Щ"
-      ]
-    },
-    {
-      "key": "Ӏ",
-      "alternates": [
-        "Ъ"
+        "Ы́"
       ]
     },
     {
       "key": "А",
       "alternates": [
-        "Я",
         "А́"
-      ]
-    },
-    {
-      "key": "П",
-      "alternates": [
-        "Ф"
       ]
     },
     {
@@ -203,22 +254,33 @@
       ]
     },
     {
-      "key": "Ә",
+      "key": "Э",
       "alternates": [
-        "Ә́"
+        "Э́"
+      ]
+    },
+    {
+      "key": "Я",
+      "alternates": [
+        "Я́"
       ]
     },
     {
       "key": "И",
       "alternates": [
-        "Ы",
         "И́"
       ]
     },
     {
-      "key": "Һ",
+      "key": "Ь",
       "alternates": [
-        "Ь"
+        "Ъ"
+      ]
+    },
+    {
+      "key": "Ю",
+      "alternates": [
+        "Ю́"
       ]
     }
   ]
