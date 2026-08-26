@@ -1,183 +1,139 @@
 # rf-keyboard-corpora
 
-**Corpus-based infrastructure for scalable support of Cyrillic languages on mobile keyboards**
+> **Languages:** **English** · [Русский](README.ru.md) · [Тыва дыл](README.tyv.md)
 
-*Русская версия описания находится ниже.*
+**Corpus base for the “RF Keyboard” project — system keyboard layouts for every Cyrillic language.**
 
-> **Project Goals**
+> **Project goals**
 >
-> 1. Extend the Russian keyboard layout with corpus-derived long-press mappings to improve support for additional Cyrillic languages.
-> 2. Prepare language-specific keyboard resources and layouts for individual Cyrillic languages.
-> 3. Provide open language infrastructure for researchers, language communities, linguists, and software developers.
-> 4. Develop a scalable framework that can support Cyrillic languages beyond the Russian Federation.
-> 5. Contribute reusable language resources for future keyboard technologies, localization systems, NLP research, and AI applications.
-
-RF Keyboard Corpora is a corpus-based language infrastructure project designed to improve digital support for Cyrillic languages.
-
-The project currently includes 53 languages representing approximately 138.9 million speakers and more than 6.1 billion corpus words. It combines language metadata, corpus-derived frequency statistics, character mappings, speaker demographics, and machine-readable keyboard specifications.
-
-The framework explores how existing Russian keyboard infrastructure can be extended through corpus-based long-press optimization to support a much broader multilingual Cyrillic ecosystem. The resulting approach may benefit not only speakers of underrepresented languages, but also Russian-speaking users, bilingual communities, researchers, students, and travelers who regularly interact with multiple Cyrillic languages.
-
-In addition to mobile keyboard development, the dataset may be useful for localization, spell checking, predictive text systems, educational software, language technology research, natural language processing, and future AI systems.
-
-The project is based on a simple principle: if a language has a writing system, it should be practical to use that writing system on modern devices.
+> 1. Extend the **Russian system layout** so that long-press covers every Cyrillic language of the Russian Federation.
+> 2. Prepare **individual system keyboards** for each language of the RF.
+> 3. Serve academic use, for any researcher.
+> 4. Prepare the project to support every Cyrillic language in the world.
 
 ---
 
-## Documentation
+## 1. What data we collect and why
 
-For readers, researchers, and contributors:
+| Component | File / folder | Purpose |
+| --- | --- | --- |
+| **Monocorpus** | `raw/lang_mono_<N>.txt` | Continuous text in the target language; `N` = number of characters. Primary source of **per-character** statistics (one token = one Unicode character). |
+| **Frequencies** | `frequencies/lang_monocorpus_freq.csv` | A “character → occurrences” table — drives the sort order of long-press variants. |
+| **Layouts** | `keyboard/lang_key_*.json` | Base, 4-row, complex, etc. — ready-to-use iOS files. |
+| **Long-press mapping** | `mapping/lang_key_mapping.json` | Specifies which **base** Russian letter reveals each additional letter/symbol of the language. |
+| **Speaker statistics** | `stats/lang_population.csv` | Weights “frequency × reach” and justifies priorities to Apple. Reach = number of speakers. |
+| **Manifest** | `metadata.json` | Machine-readable metadata (version, license, contacts). |
+| **README** | `README.md` | Human-readable description: corpus sources, cleaning, specifics. |
 
-* **ARCHITECTURE.md** — corpus processing workflow, frequency analysis, long-press generation, and keyboard infrastructure design.
-* **DATASET_OVERVIEW.md** — project statistics, language coverage, speaker coverage, geographic scope, and ecosystem impact.
-* **AUTHORS_AND_CONTRIBUTORS.md** — project authorship, language contributors, and community collaboration.
-
-For language-specific data, see the corresponding folders under `data/`.
-
----
-
-# Клавиатура РФ
-
-**Корпусная инфраструктура проекта «Клавиатура РФ» для поддержки кириллических языков**
-
-> **Цели проекта**  
-> 1. Расширить **русскую системную раскладку**, чтобы через long-press покрыть все кириллические языки Российской Федерации.  
-> 2. Подготовить **индивидуальные системные клавиатуры** для каждого языка РФ.
-> 3. Создать открытый набор языковых данных для исследователей, языковых сообществ и разработчиков.
-> 4. Разработать масштабируемую инфраструктуру для поддержки кириллических языков за пределами Российской Федерации.
-> 5. Подготовить данные для будущих клавиатур, локализации, NLP и AI-систем.
+> `lang` — ISO 639-3 code (e.g. `tyv`, `kbd`).
 
 ---
 
-## 1. Какие данные собираем и зачем
+## 2. Mapping your letters onto Russian letters
 
-| Компонент                | Файл/папка                             | Назначение                                                                              |
-| ------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------- |
-| **Монокорпус**           | `raw/lang_mono_<N>.txt`                | Сплошной текст на языке-цели; `N` — примерный размер корпуса в словах. Основной источник статистики по **символам** (один токен = один Unicode‑символ).        |
-| **Частотности**          | `frequencies/lang_monocorpus_freq.csv` | Таблица «символ → вхождений» — влияет на сортировку вариантов long‑press                |
-| **Раскладки**            | `keyboard/lang_key_*.json`             | Базовая, 4‑рядная, комплексная и т. д. — готовые файлы iOS                              |
-| **Long‑press‑маппинг**   | `mapping/lang_key_mapping.json`        | Указывает, под какой **базовой** русской буквой показывать дополнительные буквы/символы языка |
-| **Статистика носителей** | `stats/lang_population.csv`            | Взвешиваем «частота × охват» и аргументируем приоритеты перед Apple. Охват = носители   |
-| **Манифест**             | `metadata.json`                        | Машинно‑читаемые метаданные (версия, лицензия, контакты)                                |
-| **README**               | `README.md`                            | Человеческое описание: источники корпуса, очистка, особенности                          |
+When a letter on the standard Russian keyboard is long-pressed (as Е → [Ё] works today), your letters should sit under the nearest similar letter, through which they will appear once the extended RF Keyboard is built.
 
-> `lang` — код ISO 639‑3 (пример: `tyv`, `kbd`).
+Map your letters to Russian keys in **lang_key_mapping.json**:
 
----
-
-## 2. Маппинг ваших букв на буквы Русского языка
-
-В случае долгого нажатия буквы в стандартной русской клавиатуре (например, как сейчас Е -> [Ё]), ваши буквы должны иметь ближайшую похожую букву, через которую покажется в случае создания расширенной Клавиатуры РФ.
-
-Соответствие ваших букв к букве Русского языка в файле **lang_key_mapping.json**:
-
-```jsonc
+```json
 {
   "О": ["Ӧ", "Ө", "О̄"],
   "У": ["Ӱ", "Ү"],
   "Н": ["Ң"],
-  "Е": ["Ё", "Ё"]
+  "Е": ["Ё"]
 }
 ```
 
-или же создать более простой вариант в текстовом формате **lang_key_mapping.txt**:
+or use a simpler text form in **lang_key_mapping.txt**:
 
-```txt
+```
 О | Ӧ, Ө, О̄
 У | Ӱ, Ү
 Н | Ң
-Е | Ё, Ё
+Е | Ё
 ```
 
-
-*Ключ — базовая русская клавиша; значения — варианты в порядке убывания частоты (но пока это не столь важно).*
+*Key = base Russian key; values = variants in descending frequency order (not critical yet).*
 
 ---
 
-## 3. Мини-пайплайн добавления языка
+## 3. Vendor mini-pipeline (not working yet)
 
-1. **Соберите корпус** → `raw/`, один символ = один токен.
-
-2. **Вычислите частоты**
-   – на Hugging Face загрузите корпус и сделайте что-то подобное по инструкции на этой [странице](https://github.com/Agisight/rf-keyboard-corpora/blob/rf/hf_freq_analyze.md) – есть встроенный механизм подсчета данных у вашего монокорпуса.
-
-3. **Создайте `lang_key_mapping.txt` или `lang_key_mapping.json`** вручную в удобном редакторе.
-
-4. **Подготовьте раскладки** (`keyboard/lang_key_default.json` и, при необходимости, дополнительные).
-
-5. **Добавьте статистику носителей**, заполните `metadata.json` и `README.md`.
-
-6. **Откройте pull‑request**.
+1. **Collect the corpus** → `raw/`, one character = one token.
+2. **Compute frequencies** — upload the corpus to Hugging Face and follow the instructions on [this page](https://github.com/Agisight/rf-keyboard-corpora/blob/rf/hf_freq_analyze.md); there is a built-in mechanism that counts the statistics of your monocorpus.
+3. **Create `lang_key_mapping.txt` or `lang_key_mapping.json`** by hand, in any editor you like.
+4. **Prepare the layouts** (`keyboard/lang_key_default.json` and additional ones if needed).
+5. **Add speaker statistics**, fill in `metadata.json` and `README.md`.
+6. **Open a pull request.**
 
 ---
 
 ## 4. FAQ
 
-| Вопрос                                                                   | Ответ                                                                             |
-| ------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| **Можно ли несколько вендоров для одного языка?**                        | Да. Используйте разные папки `<vendor>`; скрипты автоматически объединят частоты. |
-| **Как обрабатывать emoji, латиницу и другие чужие символы?**             | При расчёте частот скрипт по умолчанию игнорирует всё, что не входит в кириллический блок Unicode. Буквы целевого языка сохраняются, шум отбрасывается. |
-| **Нужно ли включать пробелы и пунктуацию в `lang_monocorpus_freq.csv`?** | Нет. Оставляйте только буквенные символы и специфические знаки языка; пробелы и знаки препинания опускайте.                                             |
-| **Как именовать файлы при обновлении корпуса?**                          | Добавляйте суффикс версии (`_v2`, дата) и обновляйте поле `version` в `metadata.json`.                                                                  |
-| **Обязательна ли 4‑рядная раскладка?**                                   | Нет. Добавляйте её, если она будет полезна; базовая портретная раскладка (3 ряда символов) обязательна.                                       |
-| **Какую лицензию выбрать для корпуса?**                                  | Рекомендуем MIT или совместимую открытую лицензию, чтобы Apple могла свободно использовать данные.        
-
+| Question | Answer |
+| --- | --- |
+| **Can there be several vendors for one language?** | Yes. Use separate `<vendor>` folders; the scripts merge the frequencies automatically. |
+| **How are emoji, Latin script and other foreign characters handled?** | When computing frequencies, the script ignores everything outside the Cyrillic Unicode block by default. The target language’s letters are kept, the noise is discarded. |
+| **Should spaces and punctuation be included in `lang_monocorpus_freq.csv`?** | No. Keep only letter characters and the language-specific signs; omit spaces and punctuation. |
+| **How should files be named when the corpus is updated?** | Add a version suffix (`_v2`, a date) and update the `version` field in `metadata.json`. |
+| **Is a 4-row layout required?** | No. Add it if it’s useful; the base portrait layout (3 rows of characters) is required. |
+| **Which license to choose for the corpus?** | We recommend MIT or a compatible open license, so Apple can use the data freely. |
 
 ---
 
-**Корпус → Частоты → Инфраструктура языка** — точные данные дают объективное основание для расположения букв. Чем точнее корпуса и статистика, тем убедительнее аргумент для Apple внедрить полноценную поддержку всех кириллических языков Российской Федерации.
+**Corpus → Frequencies → Ergonomics** — accurate data gives an objective basis for letter placement. The more precise the corpora and statistics, the stronger the argument for Apple to build full support for every Cyrillic language of the Russian Federation.
 
-## 5. Готовность языков
+## 5. Language readiness
 
-| Язык                      | Частотность | Маппинг | Носители | by Ali Kuzhuget |
-|---------------------------|-------------|---------|----------|------------------|
-| Абазинский                | ✅          | ✅      | ✅       | ○                |
-| Абхазский                 | ✅          | ✅      | ✅       | ○                |
-| Аварский                  | ✅          | ✅      | ✅       | ○                |
-| Агульский                 | ✅          | ✅      | ✅       | ●                |
-| Адыгейский                | ✅          | ✅      | ✅       | ○                |
-| Алтайский                 | ✅          | ✅      | ✅       | ●                |
-| Андийский                 | ✅          | ✅      | ✅       | ●                |
-| Ахвахский                 | ❌          | ✅      | ✅       | ○                |
-| Башкирский                | ✅          | ✅      | ✅       | ○                |
-| Белорусский               | ✅          | ✅      | ✅       | ●                |
-| Бурятский                 | ✅          | ✅      | ✅       | ○                |
-| Даргинский                | ✅          | ✅      | ✅       | ○                |
-| Долганский                | ✅          | ✅      | ✅       | ○                |
-| Церковнославянский        | ✅          | ✅      | ✅       | ●                |
-| Ингушский                 | ✅          | ✅      | ✅       | ●                |
-| Кабардино-черкесский      | ✅          | ✅      | ✅       | ○                |
-| Казахский                 | ✅          | ✅      | ✅       | ●                |
-| Кайтагский                | ✅          | ✅      | ✅       | ○                |
-| Калмыцкий                 | ✅          | ✅      | ✅       | ●                |
-| Каратинский               | ✅          | ✅      | ✅       | ○                |
-| Карачаево-балкарский      | ✅          | ✅      | ✅       | ○                |
-| Коми                      | ✅          | ✅      | ✅       | ○                |
-| Крымскотатарский          | ✅          | ✅      | ✅       | ●                |
-| Кумыкский                 | ✅          | ✅      | ✅       | ●                |
-| Кыргыз                    | ✅          | ✅      | ✅       | ●                |
-| Лакский                   | ✅          | ✅      | ✅       | ●                |
-| Лезгинский                | ✅          | ✅      | ✅       | ○                |
-| Марийский                 | ✅          | ✅      | ✅       | ●                |
-| Мокшанский                | ✅          | ✅      | ✅       | ●                |
-| Молдавский                | ✅          | ✅      | ✅       | ●                |
-| Ненецкий                  | ✅          | ✅      | ✅       | ●                |
-| Ногайский                 | ✅          | ✅      | ✅       | ○                |
-| Осетинский                | ✅          | ✅      | ✅       | ○                |
-| Рутульский                | ✅          | ✅      | ✅       | ●                |
-| Саха                      | ✅          | ✅      | ✅       | ○                |
-| Сибирско-татарский        | ✅          | ✅      | ✅       | ○                |
-| Табасаранский             | ✅          | ✅      | ✅       | ●                |
-| Таджикский                | ✅          | ✅      | ✅       | ○                |
-| Татарский                 | ✅          | ✅      | ✅       | ○                |
-| Тиндинский                | ✅          | ✅      | ✅       | ●                |
-| Тувинский                 | ✅          | ✅      | ✅       | ●                |
-| Удмуртский                | ✅          | ✅      | ✅       | ○                |
-| Узбекский                 | ✅          | ✅      | ✅       | ●                |
-| Украинский                | ✅          | ✅      | ✅       | ●                |
-| Хакасский                 | ✅          | ✅      | ✅       | ●                |
-| Цудахарский               | ✅          | ✅      | ✅       | ●                |
-| Цыганский                 | ✅          | ✅      | ✅       | ●                |
-| Чеченский                 | ✅          | ✅      | ✅       | ●                |
-| Чувашский                 | ✅          | ✅      | ✅       | ○                |
-| Эрзянский                 | ✅          | ✅      | ✅       | ●                |
+| Language | Frequencies | Mapping | Speakers | by Ali Kuzhuget |
+| --- | --- | --- | --- | --- |
+| Abaza | ✅ | ✅ | ✅ | ○ |
+| Abkhaz | ✅ | ✅ | ✅ | ○ |
+| Avar | ✅ | ✅ | ✅ | ○ |
+| Agul | ✅ | ✅ | ✅ | ● |
+| Adyghe | ✅ | ✅ | ✅ | ○ |
+| Altai | ✅ | ✅ | ✅ | ● |
+| Andi | ✅ | ✅ | ✅ | ● |
+| Akhvakh | ❌ | ✅ | ✅ | ○ |
+| Bashkir | ✅ | ✅ | ✅ | ○ |
+| Belarusian | ✅ | ✅ | ✅ | ● |
+| Buryat | ✅ | ✅ | ✅ | ○ |
+| Dargwa | ✅ | ✅ | ✅ | ○ |
+| Dolgan | ✅ | ✅ | ✅ | ○ |
+| Church Slavonic | ✅ | ✅ | ✅ | ● |
+| Ingush | ✅ | ✅ | ✅ | ● |
+| Kabardian (Kabardino-Cherkess) | ✅ | ✅ | ✅ | ○ |
+| Kazakh | ✅ | ✅ | ✅ | ● |
+| Kaitag | ✅ | ✅ | ✅ | ○ |
+| Kalmyk | ✅ | ✅ | ✅ | ● |
+| Karata | ✅ | ✅ | ✅ | ○ |
+| Karachay-Balkar | ✅ | ✅ | ✅ | ○ |
+| Komi | ✅ | ✅ | ✅ | ○ |
+| Crimean Tatar | ✅ | ✅ | ✅ | ● |
+| Kumyk | ✅ | ✅ | ✅ | ● |
+| Kyrgyz | ✅ | ✅ | ✅ | ● |
+| Lak | ✅ | ✅ | ✅ | ● |
+| Lezgian | ✅ | ✅ | ✅ | ○ |
+| Mari | ✅ | ✅ | ✅ | ● |
+| Moksha | ✅ | ✅ | ✅ | ● |
+| Moldovan | ✅ | ✅ | ✅ | ● |
+| Nenets | ✅ | ✅ | ✅ | ● |
+| Nogai | ✅ | ✅ | ✅ | ○ |
+| Ossetian | ✅ | ✅ | ✅ | ○ |
+| Rutul | ✅ | ✅ | ✅ | ● |
+| Sakha (Yakut) | ✅ | ✅ | ✅ | ○ |
+| Siberian Tatar | ✅ | ✅ | ✅ | ○ |
+| Tabasaran | ✅ | ✅ | ✅ | ● |
+| Tajik | ✅ | ✅ | ✅ | ○ |
+| Tatar | ✅ | ✅ | ✅ | ○ |
+| Tindi | ✅ | ✅ | ✅ | ● |
+| Tuvan | ✅ | ✅ | ✅ | ● |
+| Udmurt | ✅ | ✅ | ✅ | ○ |
+| Uzbek | ✅ | ✅ | ✅ | ● |
+| Ukrainian | ✅ | ✅ | ✅ | ● |
+| Khakas | ✅ | ✅ | ✅ | ● |
+| Tsudakhar | ✅ | ✅ | ✅ | ● |
+| Romani | ✅ | ✅ | ✅ | ● |
+| Chechen | ✅ | ✅ | ✅ | ● |
+| Chuvash | ✅ | ✅ | ✅ | ○ |
+| Erzya | ✅ | ✅ | ✅ | ● |
