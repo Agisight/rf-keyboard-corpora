@@ -34,19 +34,26 @@ JSON‑файлы с вариантами раскладок:
 
 ```sql
 WITH raw_text AS (
-  SELECT UPPER(text) AS text
+  -- NFC joins И+◌̄ → Ӣ and У+◌̄ → Ӯ; А̄ Е̄ О̄ С̄ have no precomposed form and stay as letter + U+0304
+  SELECT nfc_normalize(UPPER(text)) AS text
   FROM train
 ),
 normalized_text AS (
   SELECT
-    regexp_replace(text, '[ⅠＩǀ│┃∣❘I1l|І](?=[а-яА-ЯӀ])|(?<=[а-яА-ЯӀ])[ⅠＩǀ│┃∣❘I1l|І]', 'Ӏ', 'g') AS norm_text
+    regexp_replace(            -- one nasal marker: ᵸ (U+1D78) → ᴴ (U+1D34)
+      regexp_replace(          -- palochka look-alikes next to Cyrillic → Ӏ (U+04C0)
+        regexp_replace(text, '([А-ЯЁӀӢӮ])[ⅠＩǀ│┃∣❘I1|І]', '\1Ӏ', 'g'),
+        '[ⅠＩǀ│┃∣❘I1|І]([А-ЯЁӀӢӮ])', 'Ӏ\1', 'g'
+      ),
+      'ᵸ', 'ᴴ', 'g'
+    ) AS norm_text
   FROM raw_text
 ),
 extracted_letters AS (
   SELECT
     regexp_extract_all(
       norm_text,
-      '(ᵸ)|(А̄)|(Аᴴ)|(А̄ᴴ)|(ГЪ)|(ГЬ)|(ГӀ)|(Еᴴ)|(Е̄)|(ДЖ)|(Ӣ)|(Иᴴ)|(Ӣᴴ)|(КК)|(КӀ)|(ЛЪ)|(ЛЛЪ)|(ЛӀ)|(О̄)|(Оᴴ)|(C̄)|(ТӀ)|(Ӯ)|(Уᴴ)|(Ӯᴴ)|(ХХ)|(ХЪ)|(ХЬ)|(ХӀ)|(ЦЦ)|(ЦӀ)|(ЧЧ)|([АБВГҒДЕЁЖЗИЙӀКЛМНҢОӦПРСТУӰФХЦЧӋШЩЪЫЬЭЮЯ])'
+      '(Е̄ᴴ)|(О̄ᴴ)|(А̄ᴴ)|(ЛЛЪ)|(Е̄)|(ЛӀ)|(ЦЦ)|(ДЖ)|(КК)|(Еᴴ)|(С̄)|(Аᴴ)|(Оᴴ)|(Уᴴ)|(ГЪ)|(ТӀ)|(ЛЪ)|(КӀ)|(ГЬ)|(Иᴴ)|(Ӯᴴ)|(ХЬ)|(А̄)|(ЧӀ)|(ГӀ)|(Ӣᴴ)|(ХХ)|(О̄)|(ХӀ)|(ЦӀ)|(ХЪ)|(ЧЧ)|(Ӣ)|(Ӯ)|([АБВГҒДЕЁЖЗИЙӀКЛМНҢОӦПРСТУӰФХЦЧӋШЩЪЫЬЭЮЯ])|(ᴴ)'
     ) AS letter
   FROM normalized_text
 ),
@@ -55,9 +62,7 @@ flattened AS (
   FROM extracted_letters
 ),
 grouped AS (
-  SELECT
-    letter,
-    COUNT(*) AS frequency
+  SELECT letter, COUNT(*) AS frequency
   FROM flattened
   GROUP BY letter
 ),
@@ -72,4 +77,19 @@ SELECT
 FROM grouped
 CROSS JOIN total_count
 ORDER BY frequency DESC;
+```
+
+### Проверка палочки
+
+```sql
+-- Check: what stands before a palochka that wasn't joined into a known digraph?
+-- If ЧӀ, ПӀ, КЪ etc. show up here, they should be added to the letter list.
+WITH t AS (
+  SELECT regexp_replace(regexp_replace(nfc_normalize(UPPER(text)),
+           '([А-ЯЁӀӢӮ])[ⅠＩǀ│┃∣❘I1|І]', '\1Ӏ', 'g'), '[ⅠＩǀ│┃∣❘I1|І]([А-ЯЁӀӢӮ])', 'Ӏ\1', 'g') AS s
+  FROM train
+)
+SELECT pair, COUNT(*) AS n
+FROM (SELECT unnest(regexp_extract_all(s, '(.Ӏ)')) AS pair FROM t)
+GROUP BY pair ORDER BY n DESC;
 ```
