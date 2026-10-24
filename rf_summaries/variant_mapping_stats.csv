@@ -1,7 +1,8 @@
 base_letter,variant,source_languages,rf_speakers,relative_freq_in_group
-А,Ӕ,oss,456564,62.48%
-А,Ӑ,chv,700222,31.93%
-А,Ӓ,"mhr,mrj",558803,5.38%
+А,Ә,xdq,40000,78.08%
+А,Ӕ,oss,456564,13.69%
+А,Ӑ,chv,700222,7.00%
+А,Ӓ,"mhr,mrj",558803,1.18%
 А,А̄,tin,20000,<1%
 Г,Ғ,"bak,kaz,kjh,krc,tgk,uzb,xdq",2638879,90.98%
 Г,Ҕ,sah,378000,8.17%
@@ -18,9 +19,9 @@ base_letter,variant,source_languages,rf_speakers,relative_freq_in_group
 З,Ҙ,bak,1567000,97.20%
 З,Ӟ,udm,396000,2.71%
 З,Ӡ,abk,4255,<1%
-И,І,"bel,chu,kaz,kjh,koi,kpv,ukr",1216677,92.68%
-И,Ӥ,udm,396000,4.84%
-И,Ӣ,"tgk,tin",236450,2.48%
+И,І,"bel,chu,kaz,kjh,koi,kpv,ukr",1216677,91.24%
+И,Ӥ,udm,396000,5.80%
+И,Ӣ,"tgk,tin",236450,2.97%
 Й,Ї,ukr,627106,85.58%
 Й,Ј,"alt,atv",68272,14.42%
 Й,Ѵ,chu,25620,<1%
@@ -49,8 +50,8 @@ base_letter,variant,source_languages,rf_speakers,relative_freq_in_group
 У,Ұ,kaz,265703,1.86%
 У,Ӯ,"tgk,tin",236450,<1%
 Ф,Ѳ,chu,25620,100.00%
-Х,Һ,"bak,bua,dlg,kaz,sah,sty,tat,xal",7376481,85.96%
-Х,Ҳ,"abk,tgk,uzb,xdq",489667,14.04%
+Х,Һ,"bak,bua,dlg,kaz,sah,sty,tat,xal,xdq",7416481,86.20%
+Х,Ҳ,"abk,tgk,uzb,xdq",489667,13.80%
 Ц,Ҵ,abk,4255,100.00%
 Ч,Ҷ,"abk,tgk",220705,71.63%
 Ч,Ӵ,udm,396000,25.66%
