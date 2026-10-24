@@ -38,15 +38,12 @@ WITH raw_text AS (
 ),
 pre_norm_text AS (
   SELECT
-    regexp_replace(text, '^(\d+)([А-Я])', '\1 \2', 'g') AS text
+    regexp_replace(text, '^(\d+)((?=[А-Я]))', '\1 \2', 'g') AS text
   FROM raw_text
 ),
 normalized_text AS (
   SELECT
-    regexp_replace(
-      regexp_replace(text, '([А-ЯЁӀ])[ⅠＩǀ│┃∣❘I1|І]', '\1Ӏ', 'g'),
-      '[ⅠＩǀ│┃∣❘I1|І]([А-ЯЁӀ])', 'Ӏ\1', 'g'
-    ) AS norm_text
+    regexp_replace(text, '[ⅠＩǀ│┃∣❘I1l|І](?=[а-яА-ЯӀ])|(?<=[а-яА-ЯӀ])[ⅠＩǀ│┃∣❘I1l|І]', 'Ӏ', 'g') AS norm_text
   FROM pre_norm_text
 ),
 extracted_letters AS (
