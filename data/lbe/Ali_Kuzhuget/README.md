@@ -36,10 +36,18 @@ WITH raw_text AS (
   SELECT UPPER(text) AS text
   FROM lbe_cyrl_train
 ),
+pre_norm_text AS (
+  SELECT
+    regexp_replace(text, '^(\d+)([А-Я])', '\1 \2', 'g') AS text
+  FROM raw_text
+),
 normalized_text AS (
   SELECT
-    regexp_replace(text, '[ⅠＩǀ│┃∣❘I1l|І](?=[а-яА-ЯӀ])|(?<=[а-яА-ЯӀ])[ⅠＩǀ│┃∣❘I1l|І]', 'Ӏ', 'g') AS norm_text
-  FROM raw_text
+    regexp_replace(
+      regexp_replace(text, '([а-яА-ЯӀ])[ⅠＩǀ│┃∣❘I1l|І]', '\1Ӏ', 'g'),
+      '[ⅠＩǀ│┃∣❘I1l|І]([а-яА-ЯӀ])', 'Ӏ\1', 'g'
+    ) AS norm_text
+  FROM pre_norm_text
 ),
 extracted_letters AS (
   SELECT
@@ -71,4 +79,30 @@ SELECT
 FROM grouped
 CROSS JOIN total_count
 ORDER BY frequency DESC;
+```
+
+### Проверка палочки
+
+```sql
+-- What stands before a palochka that is NOT part of a digraph (КӀ ПӀ ТӀ ХӀ ЦӀ ЧӀ)?
+-- '·' = start of text, a space or punctuation: the palochka begins a word.
+-- Anything else (a vowel, another letter) is worth a look: a missing digraph or a false conversion.
+WITH t AS (
+  SELECT regexp_replace(
+           regexp_replace(
+             regexp_replace(UPPER(text), '^(\d+)([А-Я])', '\1 \2', 'g'),
+             '([а-яА-ЯӀ])[ⅠＩǀ│┃∣❘I1l|І]', '\1Ӏ', 'g'),
+           '[ⅠＩǀ│┃∣❘I1l|І]([а-яА-ЯӀ])', 'Ӏ\1', 'g') AS s
+  FROM lbe_cyrl_train
+),
+hits AS (
+  SELECT unnest(regexp_extract_all(' ' || s, '(.)Ӏ', 1)) AS prev
+  FROM t
+)
+SELECT CASE WHEN regexp_matches(prev, '[А-ЯЁӀ]') THEN prev ELSE '·' END AS before_palochka,
+       COUNT(*) AS n
+FROM hits
+WHERE prev NOT IN ('К', 'П', 'Т', 'Х', 'Ц', 'Ч')
+GROUP BY before_palochka
+ORDER BY n DESC;
 ```
