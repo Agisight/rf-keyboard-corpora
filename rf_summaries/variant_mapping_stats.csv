@@ -1,5 +1,5 @@
 base_letter,variant,source_languages,rf_speakers,relative_freq_in_group
-А,Ӕ,oss,456564,62.48%
+А,Ӕ,oss,456564,62.47%
 А,Ӑ,chv,700222,31.93%
 А,Ӓ,"mhr,mrj",558803,5.38%
 А,А̄,tin,20000,<1%
@@ -7,7 +7,7 @@ base_letter,variant,source_languages,rf_speakers,relative_freq_in_group
 Г,Ҕ,sah,378000,8.17%
 Г,Ґ,"rom,ukr",755303,<1%
 Г,Ӷ,abk,4255,<1%
-Е,Ӗ,chv,700222,91.54%
+Е,Ӗ,chv,700222,91.53%
 Е,Є,ukr,627106,6.86%
 Е,Ѣ,chu,25620,1.29%
 Е,Е̄,tin,20000,<1%
@@ -29,7 +29,7 @@ base_letter,variant,source_languages,rf_speakers,relative_freq_in_group
 К,Ҟ,abk,4255,<1%
 К,Ѯ,chu,25620,<1%
 Л,Ӆ,yrk,24487,<1%
-Н,Ң,"bak,kaz,kir,kjh,krc,sty,tat,tyv,xal",7491248,92.02%
+Н,Ң,"bak,kaz,kir,kjh,krc,sty,tat,tyv,xal",7491248,92.03%
 Н,Ҥ,"alt,atv,mhr,sah",870075,6.60%
 Н,Ӈ,"dlg,yrk",29323,<1%
 Н,ᵸ,"akv,tin",27521,<1%
