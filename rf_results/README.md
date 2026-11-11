@@ -2,7 +2,12 @@
 
 **Состояние, переданное в Apple: сентябрь 2026.** Эти файлы не обновляются.
 
-Данные в папке посчитаны 2025-12-21 (коммит `e9e7be8`) и до сентября 2026 года не менялись. По ним Apple делала системные клавиатуры для языков РФ, которые выходят в iOS 27.2.
+Данные в папке посчитаны 2025-12-21 (коммит `e9e7be8`) и до сентября 2026 года не менялись. По ним Apple сделала долгое нажатие для языков РФ в системной русской клавиатуре.
+
+- **iOS 27** (сентябрь 2026): первая версия — вошли не все буквы, порядок на долгом нажатии был неправильным.
+- **iOS 27.2** (26 октября 2026): исправлено по договорённости с разработчиком Apple — все буквы и порядок по этому снимку.
+
+Финальное состояние отмечено тегом `apple-ios-27.2`.
 
 | Файл | Что внутри | Копия чего |
 |---|---|---|
@@ -20,7 +25,12 @@
 
 **State handed to Apple: September 2026.** These files are not updated.
 
-The data here was computed on 2025-12-21 (commit `e9e7be8`) and did not change until September 2026. Apple used it for the system keyboards for languages of Russia shipping in iOS 27.2.
+The data here was computed on 2025-12-21 (commit `e9e7be8`) and did not change until September 2026. Apple used it for the long-press letters for languages of Russia on the system Russian keyboard.
+
+- **iOS 27** (September 2026): first version — not all letters were included and the long-press order was wrong.
+- **iOS 27.2** (October 26, 2026): fixed as agreed with an Apple engineer — all letters, in the order from this snapshot.
+
+The final state is marked with the tag `apple-ios-27.2`.
 
 Current summaries live in `rf_summaries/`. Data fixes made after the snapshot (2026-10-23: Lak, Tindi, Kabardian, Chechen, Kaitag) did not change the letter order; only percentages in the `И`, `Н`, `Х` rows moved.
 

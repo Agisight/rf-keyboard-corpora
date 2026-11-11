@@ -11,6 +11,8 @@
 > 3. Serve academic use, for any researcher.
 > 4. Prepare the project to support every Cyrillic language in the world.
 
+> **Status:** Goal 1 is done. The Russian system keyboard in **iOS 27.2** (October 2026) has long-press letters for the Cyrillic languages of the RF, built from the data in [`rf_results/`](rf_results/) (tag [`apple-ios-27.2`](../../releases/tag/apple-ios-27.2)). The "data for Apple" stage is closed; further work here is refinement and separate development.
+
 ---
 
 ## 1. What data we collect and why
